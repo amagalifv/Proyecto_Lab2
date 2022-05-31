@@ -1,11 +1,17 @@
 # Proyecto_Lab2
 Tipo de proyecto: Sistema de gestión de archivos 
+
 Nombre: Administración hogareña
+
 Tema: Se tratará de una aplicación de consola en la que se podrán registrar los ingresos y gastos mensuales. Además podrán fijarse metas de ahorro. 
 Descripción: El sistema guardará la información de los gastos e ingresos mensuales, podrán ser consultados, planificar un ahorro, ver cuánto se ahorró mensual y anualmente.
+
 Archivos a utilizar: 
+
 “movimiento.dat” - “categoria.dat” - “ahorro.dat” - “movimientoServicio.dat”
+
 “movimiento.bkp” - “categoria.bkp” - “ahorro.bkp” - “movimientoServicio.bkp”
+
 “movimiento.ini” - “categoria.ini” - “ahorro.ini” - “MovimientoServicio.ini”
 
 Archivo Movimientos:
