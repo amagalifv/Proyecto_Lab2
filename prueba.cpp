@@ -9,6 +9,7 @@ using namespace std;
 int main () {
     
     cout<<"Probando github desde VSC"<<endl;
+    cout<<"Odio esto jaja"<<endl;
     
     system("pause");
 
