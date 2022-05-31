@@ -16,38 +16,37 @@ Archivos a utilizar:
 
 Archivo Movimientos:
 
-Campo                    Tipo
-id (se autogenera)       número entero
-tipo                     número entero
-fecha                    fecha
-importe                  número con coma - float
-categoria                número entero
-estado                   bool
+Campo			Tipo
+id (se autogenera)	número entero
+tipo 			número entero
+fecha			fecha
+importe			número con coma - float
+categoria		número entero
+estado			bool
 
 Archivo MovimientoServicio:
 
-Campo                    Tipo
-ID Movimiento Servicio   Entero,  igual a id Movimiento
-Descripción              Cadena
-Consumo                  decimal float
-Estado                   booleano (el estado siempre debe ser el mismo que idMovimiento)
+Campo			Tipo
+ID Movimiento Servicio	Entero,  igual a id Movimiento
+Descripción		Cadena
+Consumo			decimal float
+Estado			booleano (el estado siempre debe ser el mismo que idMovimiento)
 
 
 Archivo Categorías: (el usuario no va a poder modificar este archivo)
 
-Campo                    Tipo
-ID Categoría             Entero,  autoincrementable
-Tipo de movimiento       Entero, 1 para egreso, 2 para ingreso
-Descripción              Cadena 
-Es un servicio?          booleano
-
+Campo			Tipo
+ID Categoría		Entero,  autoincrementable
+Tipo de movimiento	Entero, 1 para egreso, 2 para ingreso
+Descripción		Cadena 
+Es un servicio?		booleano
 
 
 Archivo Ahorro: (un solo campo con el ahorro definido por el usuario)
 
-Campo                    Tipo
-fecha                    fecha
-monto                    número con coma - float
+Campo			Tipo
+fecha			fecha
+monto			número con coma - float
 
 
 Clases a desarrollar: 
