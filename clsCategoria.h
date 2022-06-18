@@ -51,7 +51,7 @@ void Categoria::Cargar(int aTipo, const char *pNombre){
     cout<<endl;
 }
 void Categoria::Mostrar(){
-    cout<<"ID: "<<getId()<<endl;
+    cout<<"ID CATEGORIA: "<<getId()<<endl;
     cout<<"TIPO DE MOVIMIENTO: ";
     if(getTipoMov()==1){
         cout<<getTipoMov()<<"-INGRESO"<<endl;   

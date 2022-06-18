@@ -101,7 +101,7 @@ bool cargarDatosInicioAhorros();
 bool cargarDatosDeInicio();
 
 //FUNCIONES
-//a la funcion cargar cadena la mejore usando toupper
+//a la funcion cargar cadena la mejore usando toUpper(case)
 void cargarCadena(char *palabra, int tamano){
     int i=0;
     int j=0;
@@ -116,6 +116,7 @@ void cargarCadena(char *palabra, int tamano){
     palabra[i]='\0';
     fflush(stdin);
 
+    //fuerzo a que el usuario cargue un nombre menor al permitido
     while(strlen(palabra)>=tamano){
         j=i-1;
 

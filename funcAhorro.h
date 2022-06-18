@@ -344,7 +344,7 @@ float calcularPromedioDiarioSaldo(){
 
     reg.leerDeDisco(-8);
 
-    int anio=reg.getFecha().getAnio();
+    int anio=reg.getFecha().getAnio();  //migrar a objeto fecha
     int mes=reg.getFecha().getMes();
     int dia;
 
@@ -427,7 +427,12 @@ void quieroAhorrarPara(){
 
     copiarArchivoCategoriasAlArray(arrayCategorias);
 
-    cout<<"Ingrese la fecha de hoy: ";
+    for(int i=0; i<15; i++){
+        arrayCategorias[i].Mostrar();
+    }
+    cout<<"aca cargue array"<<endl;
+    
+    cout<<"Ingrese la fecha de hoy: ";  //migrar a obtener fecha del sistema
     fechaHoy.Cargar();
 
     cout<<endl;
@@ -435,6 +440,8 @@ void quieroAhorrarPara(){
     mostrarEgresosArrayCategorias(arrayCategorias, cantidad);
     cout<<"Indique el codigo de categoria del rubro a simular: ";
     cin>>opcion;
+    
+    //revisar esto
     while(!opcionEgresoValida(arrayCategorias, cantidad, opcion)){
         cout<<"El codigo elegido no corresponde a una categoria del listado, escriba nuevamente: ";
         cin>>opcion;
@@ -461,14 +468,15 @@ void quieroAhorrarPara(){
     }
 
     cout<<"Ingrese la fecha en la que desea concretar dicha compra: ";
-    fechaFutura.Cargar();
+    fechaFutura.Cargar(false);
 
     mesesDisponibles=calcularMeses(fechaHoy, fechaFutura);
 
     cout<<endl;
     mensajesListados("QUIERO AHORRAR PARA...");
+
     //ver por que no funciona array categorias para mostrar directo.
-    //cout<<"Categoria: "<<arrayCategorias[opcion-1].getNombre()<<endl;
+    cout<<"\t Categoria: "<<arrayCategorias[opcion-1].getNombre()<<endl;
     cout<<"\t Dinero a ahorrar $"<<necesitoAhorrar<<endl;
     cout<<"\t Meses para lograrlo: "<<mesesDisponibles<<endl;
     cout<<"\t Dinero a ahorrar por mes $"<<necesitoAhorrar/mesesDisponibles<<endl;

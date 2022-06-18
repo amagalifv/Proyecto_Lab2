@@ -173,8 +173,9 @@ void copiarArchivoCategoriasAlArray(Categoria *arrayCategorias){
     Categoria reg;
     int posDisco=0;
 
-    while(reg.leerDeDisco(posDisco++)==1){
-        arrayCategorias[reg.getId()-1].leerDeDisco(posDisco++);
+    while(reg.leerDeDisco(posDisco)==1){
+        arrayCategorias[reg.getId()-1].leerDeDisco(posDisco);
+        posDisco++;
     }
 }
 int generarVectorDinamicoCategorias(Categoria *arrayCategorias){

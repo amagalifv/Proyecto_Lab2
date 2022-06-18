@@ -42,7 +42,7 @@ int main () {
     // for(int i=0; i<13; i++){
     //     agregarCategoria();
     // }
-    system("pause");
+    // system("pause");
 
     // Ahorro reg;
     // int posDisco=0;

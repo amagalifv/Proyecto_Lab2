@@ -4,7 +4,7 @@
 #include <ctime>
 using namespace std;
 
-bool validarFecha(int d, int m, int a);
+bool validarFecha(int d, int m, int a, bool siAnioFuturo);
 
 class Fecha {
     private:
@@ -16,7 +16,7 @@ class Fecha {
             _anio=anio;
         }
         void Mostrar();
-        void Cargar();
+        void Cargar(bool siAnioFuturo=true);
         ///gets()
         int getDia(){return _dia;}
         int getMes(){return _mes;}
@@ -27,7 +27,7 @@ class Fecha {
         //void setMes(int m){_mes=m;}//{if(m>=1 && m<=12){ _mes=m;}else{_dia=0;_mes=0;_anio=0;}}
         void setMes(int m){if(m>=1 && m<=12){ _mes=m;}else{_dia=0;_mes=0;_anio=0;}}
         //void setAnio(int a){_anio=a;}//{if(a>=1920 && a<=2022){_anio=a;}else{_dia=0;_mes=0;_anio=0;}}
-        void setAnio(int a){if(a>=1920 && a<=2022){_anio=a;}else{_dia=0;_mes=0;_anio=0;}}
+        void setAnio(int a){if(a>=1920){_anio=a;}else{_dia=0;_mes=0;_anio=0;}}
         bool operator== (Fecha f){  
             if (f.getDia()==_dia && f.getMes()==_mes && f.getAnio()==_anio){return true;}
             return false;
@@ -49,7 +49,7 @@ void Fecha::Mostrar(){
     cout<<"/"<<getAnio()<<endl;
 }
 
-void Fecha::Cargar(){
+void Fecha::Cargar(bool siAnioFuturo){
     int dia, mes, anio;
 
     cout<<"INGRESE EL DIA:             ";
@@ -61,11 +61,11 @@ void Fecha::Cargar(){
     cout<<"INGRESE EL AÑO (4 digitos): ";
     cin>>anio;
 
-    if (validarFecha(dia, mes, anio)){setDia(dia);setMes(mes);setAnio(anio);}
+    if (validarFecha(dia, mes, anio, siAnioFuturo)){setDia(dia);setMes(mes);setAnio(anio);}
 
 }
 
-bool validarFecha(int d, int m, int a){
+bool validarFecha(int d, int m, int a, bool siAnioFuturo){
     bool bandera=true;
     int v[12]={31,28,31,30,31,30,31,31,30,31,30,31};
     int anioActual;
@@ -83,11 +83,13 @@ bool validarFecha(int d, int m, int a){
     if (m<1 || m>12){bandera=false;}
 
     //chequear año
-    time_t fechaActual;
-    time(&fechaActual);
-    struct tm *pST_tiempo = localtime(&fechaActual);
-    anioActual=pST_tiempo->tm_year+1900;
-    if (a<1900 || a>anioActual) {bandera=false;}
+    if(siAnioFuturo){
+        time_t fechaActual;
+        time(&fechaActual);
+        struct tm *pST_tiempo = localtime(&fechaActual);
+        anioActual=pST_tiempo->tm_year+1900;
+        if (a<1900 || a>anioActual) {bandera=false;}
+    }
 
     return bandera;
 }

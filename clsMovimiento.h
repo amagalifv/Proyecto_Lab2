@@ -110,8 +110,10 @@ void Movimiento::Cargar(){
         _siGastoFijo=false;
     }else{
         cout<<"ES UN GASTO FIJO (S PARA SI Y N PARA NO): ";
-        cin>>resp;
-        if (resp=='s' || resp=='S'){_siGastoFijo=true;}
+        resp=toupper(cin.get());
+        //cin>>toupper(resp);
+        //if (resp=='s' || resp=='S'){_siGastoFijo=true;}
+        if (resp=='S'){_siGastoFijo=true;}
         else {_siGastoFijo=false;}
     }
 

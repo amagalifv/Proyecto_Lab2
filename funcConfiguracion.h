@@ -106,7 +106,7 @@ bool bkpMovimientos(){
         fwrite(&reg, sizeof (Movimiento), 1, movimientoBkp);
     }
 
-    if (posDisco==0 || !bkpMovimientosServicios()){
+    if (!bkpMovimientosServicios() || posDisco==0){
         resultado=false;
     }
 
@@ -219,7 +219,7 @@ bool restaurarBkpMovimientos(){
         posDisco=reg.grabarEnDisco();
     }
 
-    if (posDisco==0 || !restaurarBkpMovimientosServicios()){
+    if (!restaurarBkpMovimientosServicios() || posDisco==0){
         resultado=false;
     }
     
@@ -344,7 +344,7 @@ bool datosInicioMovimientos(){
         fwrite(&reg, sizeof (Movimiento), 1, movimientoIni);
     }
 
-    if (posDisco==0 || !datosInicioMovimientosServicios()){
+    if (!datosInicioMovimientosServicios() || posDisco==0){
         resultado=false;
     }
 
@@ -459,7 +459,7 @@ bool cargarDatosInicioMovimientos(){
         posDisco=reg.grabarEnDisco();
     }
 
-    if (posDisco==0 || !cargarDatosInicioMovimientosServicios()){
+    if (!cargarDatosInicioMovimientosServicios() || posDisco==0){
         resultado=false;
     }
     
