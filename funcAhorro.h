@@ -394,8 +394,10 @@ int calcularMeses(Fecha fechaHoy, Fecha fechaFutura){
 }
 bool opcionEgresoValida(Categoria *arrayCateg, int cantidad, int opc){
     for(int i=0; i<cantidad; i++){
-        if(arrayCateg[i].getId()==opc){
-            return true;
+        if(arrayCateg[i].getTipoMov()==2){
+            if(arrayCateg[i].getId()==opc){
+                return true;
+            }
         }
     }
     return false;
@@ -410,9 +412,9 @@ void quieroAhorrarPara(){
     int aniosDisponibles=0;
 
     Categoria *arrayCategorias;
+    //por qué si genero el array en una función externa no funciona? si la paso la pos de memoria?
     //int cantidad=generarVectorDinamicoCategorias(arrayCategorias);
 
-    //por qué si genero el array en una función externa no funciona? si la paso la pos de memoria?
     int cantidad=calcularCantidadCategorias();
     if (cantidad<=0){
         exit (1);
@@ -426,12 +428,7 @@ void quieroAhorrarPara(){
     }
 
     copiarArchivoCategoriasAlArray(arrayCategorias);
-
-    for(int i=0; i<15; i++){
-        arrayCategorias[i].Mostrar();
-    }
-    cout<<"aca cargue array"<<endl;
-    
+        
     cout<<"Ingrese la fecha de hoy: ";  //migrar a obtener fecha del sistema
     fechaHoy.Cargar();
 
@@ -441,7 +438,6 @@ void quieroAhorrarPara(){
     cout<<"Indique el codigo de categoria del rubro a simular: ";
     cin>>opcion;
     
-    //revisar esto
     while(!opcionEgresoValida(arrayCategorias, cantidad, opcion)){
         cout<<"El codigo elegido no corresponde a una categoria del listado, escriba nuevamente: ";
         cin>>opcion;
