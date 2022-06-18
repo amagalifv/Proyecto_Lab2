@@ -1,11 +1,9 @@
 #ifndef CLSCATEGORIA_H_INCLUDED
 #define CLSCATEGORIA_H_INCLUDED
+#include "prototipos.h"
 
 #include <string.h>
 #include <iostream>
-
-#include "clsCategoria.h"
-#include "funcionesGlobales.h"
 
 using namespace std;
 
@@ -16,6 +14,9 @@ class Categoria{
         int _id;                 // autoincrementable
         int _tipoMovimiento;     //1 para ingreso, 2 para egreso
         char _nombre[20]={0};    //supermercado, servicio, indumentaria, farmacia, restaurante, ocio, viajes , educación, etc
+
+        //METODOS
+        int proximoId();
 
     public:
         //CONSTRUCTOR CON VALORES POR OMISION
@@ -36,12 +37,14 @@ class Categoria{
         const char *getNombre(){return _nombre;}
 
         //METODOS
-        void Cargar(int id, int aTipo, const char *pNombre);
+        void Cargar(int aTipo, const char *pNombre);
         void Mostrar();
         int leerDeDisco(int pos);
         int grabarEnDisco(int pos=-1);
 };
-void Categoria::Cargar(int id, int aTipo, const char *pNombre){
+void Categoria::Cargar(int aTipo, const char *pNombre){
+    int id=proximoId();
+
     setId(id);
     setTipoMov(aTipo);
     setNombre(pNombre);
@@ -69,7 +72,7 @@ int Categoria::leerDeDisco(int pos){
     FILE *archivo;
     int leyo=-1;
 
-    archivo=fopen("categorias.dat","rb");
+    archivo=fopen(AR_CATEGORIAS,"rb");
 
     if(archivo==NULL){
         return -1;
@@ -98,13 +101,13 @@ FILE *archivo;
     int escribio;
 
     if(pos==-1){
-        archivo=fopen("categorias.dat", "ab");
+        archivo=fopen(AR_CATEGORIAS, "ab");
         if(archivo==NULL){
             return -1;
         }
     }
     else{
-        archivo=fopen("categorias.dat", "rb+");
+        archivo=fopen(AR_CATEGORIAS, "rb+");
         if(archivo==NULL){
             return -1;
         }
@@ -114,6 +117,12 @@ FILE *archivo;
     escribio=fwrite(this, sizeof(Categoria), 1, archivo);
     fclose(archivo);
     return escribio;
+}
+int Categoria::proximoId(){
+    ///DEVUELVE EL PROXIMO NRO DE ID (AUTOINCREMENTABLE)
+    
+    leerDeDisco(-8);
+    return getId()+1;
 }
 
 #endif // CLSCATEGORIA_H_INCLUDED

@@ -2,19 +2,17 @@
 #define FUNCCATEGORIA_H_INCLUDED
 
 #include <string.h>
+#include "clsCategoria.h"
 
 using namespace std;
 
-//PROTOTIPOS
-int menuCategorias();
-int proximoId();
-void agregarCategoria();
-bool esMovimientoValido(int mov);
-bool esRepetido(const char *pNombre);
-int listarCategorias();
-int listarCategoriaPorId(int cod);
+//PROTITPOS
+void copiarArchivoCategoriasAlArray(Categoria *arrayCategorias);
+int generarVectorDinamicoCategorias(Categoria *arrayCategorias);  //crea vector dinamico categ - func global
+void mostrarEgresosArrayCategorias(Categoria *arrayCategorias, int cantidad);
+void mostrarIngesosArrayCategorias(Categoria *arrayCategorias, int cantidad);
+bool esEgreso(Categoria *arrayCategorias, int codCateg);
 //FIN PROTOTIPOS
-
 
 //FUNCIONES
 int menuCategorias(){
@@ -26,9 +24,10 @@ int menuCategorias(){
         cout<<"*************************************"<<endl;
         cout<<"********** MENU CATEGORIAS **********"<<endl;
         cout<<"*************************************"<<endl;
-        cout<<"    1. LISTAR TODAS LAS CATEGORIAS"<<endl;
-        cout<<"    2. AGREGAR CATEGORIA"<<endl;
-        cout<<"    3. LISTAR CATEGORIA POR ID"<<endl;
+        cout<<"    1. AGREGAR CATEGORIA"<<endl;
+        cout<<"    2. LISTAR CATEGORIA POR ID"<<endl;
+        cout<<"    3. LISTAR TODAS LAS CATEGORIAS"<<endl;
+        cout<<"*************************************"<<endl;
         cout<<"    0. VOLVER AL MENU PRINCIPAL"<<endl;
         cout<<"*************************************"<<endl;
         cout<<"SELECCIONE UNA DE LAS OPCIONES: ";
@@ -36,22 +35,22 @@ int menuCategorias(){
         system("cls");
 
         switch (opc){
-            //1. LISTAR TODAS LAS VENTAS
-            case 1: contador=listarCategorias();
-                cout<<"Total de categorias: "<<contador<<endl;
+            //1. AGREGAR CATEGORIA
+            case 1: agregarCategoria();
                 break;
 
-            //2. AGREGAR CATEGORIA
-            case 2: agregarCategoria();
-                break;
-
-            //3. LISTAR CATEGORIA POR ID
-            case 3: cout<<"Ingrese el codigo de la categoria a mostrar: ";
+            //2. LISTAR CATEGORIA POR ID
+            case 2: cout<<"Ingrese el codigo de la categoria a mostrar: ";
                 cin>>cod;
                 cout<<endl;
                 if(listarCategoriaPorId(cod)==-1){
                     cout<<"No existe ese codigo de categoria!"<<endl;
                 }
+                break;
+
+            //3. LISTAR TODAS LAS VENTAS
+            case 3: contador=listarCategorias();
+                cout<<"Total de categorias: "<<contador<<endl;
                 break;
 
             default:
@@ -64,24 +63,11 @@ int menuCategorias(){
     }
     return 0;
 }
-int proximoId(){
-    ///DEVUELVE EL PROXIMO NRO DE ID (AUTOINCREMENTABLE)
-    Categoria reg;
-    
-    reg.leerDeDisco(-8);
-    return reg.getId()+1;
-}
 void agregarCategoria(){
     Categoria reg;
-    int id=0;
     int auxInt=0;
     char auxChar[20];
 
-    id=proximoId();
-
-    //consultar la siguiente duda:
-    //La validación del dato ingresado, lo hago acá en la función externa o en el setter???
-    //si lo hago en el setter, entonces esMovimientoValido es una función de la clase Categoría?
     mensajesListados("AGREGAR CATEGORIA");
     cout<<"TIPO DE MOVIMIENTO (1- INGRESO, 2- EGRESO): ";
     cin>>auxInt;
@@ -99,7 +85,7 @@ void agregarCategoria(){
         cargarCadena(auxChar,20);    
     }    
 
-    reg.Cargar(id, auxInt, auxChar);
+    reg.Cargar(auxInt, auxChar);
     mensajeOperacion(reg.grabarEnDisco());
     cout<<endl;
     mensajesListados("REGISTRO AGREGADO");
@@ -145,6 +131,84 @@ int listarCategoriaPorId(int cod){
         }
     }
     return -1;
+}
+bool esEgreso(Categoria *arrayCategorias, int codCateg){
+
+    if(arrayCategorias[codCateg-1].getTipoMov()==2){
+        return true;
+    }
+
+    return false;
+    
+}
+bool esGastoFijo(int anio, int mes, int codCateg){
+    Movimiento reg;
+    int posDisco=0;
+
+    while(reg.leerDeDisco(posDisco++)==1){
+        if(reg.getFecha().getAnio()==anio){
+            if(reg.getFecha().getMes()==mes){
+                if(reg.getCategoria()==codCateg){
+                    if(reg.getSiGastoFijo()){
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;    
+}
+int calcularCantidadCategorias(){
+    Categoria reg;
+    int posDisco=0;
+    int contador=0;
+
+    while(reg.leerDeDisco(posDisco++)==1){
+        contador++;
+    }
+
+    return contador;
+}
+void copiarArchivoCategoriasAlArray(Categoria *arrayCategorias){
+    Categoria reg;
+    int posDisco=0;
+
+    while(reg.leerDeDisco(posDisco++)==1){
+        arrayCategorias[reg.getId()-1].leerDeDisco(posDisco++);
+    }
+}
+int generarVectorDinamicoCategorias(Categoria *arrayCategorias){
+
+    int cantidad=calcularCantidadCategorias();
+    if (cantidad<=0){
+        exit (1);
+    }
+    arrayCategorias = new Categoria[cantidad];
+
+    if(arrayCategorias==NULL){
+        cout<<"NO SE PUDO ASIGNAR LA MEMORIA PARA CREAR EL ARRAY DE CATEGORIAS"<<endl;
+        cantidad=-1;
+        exit(2);
+    }
+
+    copiarArchivoCategoriasAlArray(arrayCategorias);
+
+    return cantidad;
+
+}
+void mostrarIngesosArrayCategorias(Categoria *arrayCategorias, int cantidad){
+    for (int i=0; i<cantidad; i++){
+        if(arrayCategorias[i].getTipoMov()==1){
+            arrayCategorias[i].Mostrar();
+        }
+    }
+}
+void mostrarEgresosArrayCategorias(Categoria *arrayCategorias, int cantidad){
+    for (int i=0; i<cantidad; i++){
+        if(arrayCategorias[i].getTipoMov()==2){
+            arrayCategorias[i].Mostrar();
+        }
+    }
 }
 //FIN FUNCIONES
 
