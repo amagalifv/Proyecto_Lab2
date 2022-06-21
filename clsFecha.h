@@ -4,7 +4,7 @@
 #include <ctime>
 using namespace std;
 
-bool validarFecha(int d, int m, int a, bool siAnioFuturo);
+bool validarFecha(int d, int m, int a, bool siAnioFutu);
 
 class Fecha {
     private:
@@ -16,19 +16,16 @@ class Fecha {
             _anio=anio;
         }
         void Mostrar();
-        void Cargar(bool siAnioFuturo=true);
+        void Cargar(bool siAnioFuturo);
         ///gets()
         int getDia(){return _dia;}
         int getMes(){return _mes;}
         int getAnio(){return _anio;}
         ///sets()
-        //void setDia(int d){_dia=d;}//{if(d>=1 && d<=31){ _dia=d;}else{_dia=0;_mes=0;_anio=0;}}
         void setDia(int d){if(d>=1 && d<=31){ _dia=d;}else{_dia=0;_mes=0;_anio=0;}}
-        //void setMes(int m){_mes=m;}//{if(m>=1 && m<=12){ _mes=m;}else{_dia=0;_mes=0;_anio=0;}}
         void setMes(int m){if(m>=1 && m<=12){ _mes=m;}else{_dia=0;_mes=0;_anio=0;}}
-        //void setAnio(int a){_anio=a;}//{if(a>=1920 && a<=2022){_anio=a;}else{_dia=0;_mes=0;_anio=0;}}
         void setAnio(int a){if(a>=1920){_anio=a;}else{_dia=0;_mes=0;_anio=0;}}
-        bool operator== (Fecha f){  
+        bool operator== (Fecha f){
             if (f.getDia()==_dia && f.getMes()==_mes && f.getAnio()==_anio){return true;}
             return false;
         }
@@ -49,7 +46,7 @@ void Fecha::Mostrar(){
     cout<<"/"<<getAnio()<<endl;
 }
 
-void Fecha::Cargar(bool siAnioFuturo){
+void Fecha::Cargar(bool siAnioFuturo=false){
     int dia, mes, anio;
 
     cout<<"INGRESE EL DIA:             ";
@@ -61,11 +58,18 @@ void Fecha::Cargar(bool siAnioFuturo){
     cout<<"INGRESE EL AÑO (4 digitos): ";
     cin>>anio;
 
-    if (validarFecha(dia, mes, anio, siAnioFuturo)){setDia(dia);setMes(mes);setAnio(anio);}
+
+    if (validarFecha(dia, mes, anio,siAnioFuturo)){
+        setDia(dia);setMes(mes);setAnio(anio);
+    } else{
+        cout<<"Fecha incorrecta, se guardará 0/0/0";
+        setDia(0);setMes(0);setAnio(0);
+    }
 
 }
+/********************FUNCIONES FECHA********************/
 
-bool validarFecha(int d, int m, int a, bool siAnioFuturo){
+bool validarFecha(int d, int m, int a, bool siAnioFutu){
     bool bandera=true;
     int v[12]={31,28,31,30,31,30,31,31,30,31,30,31};
     int anioActual;
@@ -82,16 +86,25 @@ bool validarFecha(int d, int m, int a, bool siAnioFuturo){
     //chequear mes
     if (m<1 || m>12){bandera=false;}
 
-    //chequear año
-    if(siAnioFuturo){
+    if (siAnioFutu==true) {
+        //chequear año
         time_t fechaActual;
         time(&fechaActual);
         struct tm *pST_tiempo = localtime(&fechaActual);
         anioActual=pST_tiempo->tm_year+1900;
-        if (a<1900 || a>anioActual) {bandera=false;}
-    }
+        if (a<1920 || a>anioActual) {bandera=false;}
+    }else{if (a<1920){bandera=false;}}
 
     return bandera;
+}
+
+void devuelveFechaActualSistema(Fecha *f){
+    time_t fechaActual;
+    time(&fechaActual);
+    struct tm *pST_tiempo = localtime(&fechaActual);
+    f->setAnio(pST_tiempo->tm_year+1900);
+    f->setMes(pST_tiempo->tm_mon+1);
+    f->setDia(pST_tiempo->tm_mday);
 }
 
 #endif // CLSFECHA_H_INCLUDED

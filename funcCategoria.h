@@ -21,15 +21,15 @@ int menuCategorias(){
     int contador=0;
 
     while(true){
-        cout<<"*************************************"<<endl;
-        cout<<"********** MENU CATEGORIAS **********"<<endl;
-        cout<<"*************************************"<<endl;
-        cout<<"    1. AGREGAR CATEGORIA"<<endl;
-        cout<<"    2. LISTAR CATEGORIA POR ID"<<endl;
-        cout<<"    3. LISTAR TODAS LAS CATEGORIAS"<<endl;
-        cout<<"*************************************"<<endl;
-        cout<<"    0. VOLVER AL MENU PRINCIPAL"<<endl;
-        cout<<"*************************************"<<endl;
+        cout<<"***************************************"<<endl;
+        cout<<"            MENU CATEGORIAS            "<<endl;
+        cout<<"***************************************"<<endl;
+        cout<<"      1) AGREGAR CATEGORIA"<<endl;
+        cout<<"      2) LISTAR CATEGORIA POR ID"<<endl;
+        cout<<"      3) LISTAR TODAS LAS CATEGORIAS"<<endl;
+        cout<<"***************************************"<<endl;
+        cout<<"      0) VOLVER AL MENU PRINCIPAL"<<endl;
+        cout<<"***************************************"<<endl;
         cout<<"SELECCIONE UNA DE LAS OPCIONES: ";
         cin>>opc;
         system("cls");

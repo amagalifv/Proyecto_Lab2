@@ -16,7 +16,8 @@ void bajaLogicaServicio(int id){
     int pos;
     MovimientoServicio serv;
 
-    pos=buscarPorId(id);
+
+    pos=buscarPorIdServ(id);
     if (serv.leerDeDisco(pos)!=-1) {
         serv.setEstado(false);
         serv.modificarDeDisco(pos);
@@ -28,7 +29,7 @@ void bajaLogicaServicio(int id){
 retorna pos de servicio en arch mov_Servicios
 -1 si no lo encuentra
 *************************************/
-int buscarPorId (int id) {
+int buscarPorIdServ (int id) {
     int i=0;
     MovimientoServicio serv;
 

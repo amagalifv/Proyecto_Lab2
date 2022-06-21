@@ -46,19 +46,6 @@ class Movimiento {
   0 si error de fread
   1 si está vacio el archivo
 **********************/
-/*
-int Movimiento::autogenerarId(){
-    int posDisco=0;
-    int contador=0;
-
-    //leerDeDisco(8);
-    while(leerDeDisco(posDisco++)==1){
-        contador++;
-    }
-    //return this->getId()+1;
-    return contador+1;
-}
- */
 int Movimiento::autogenerarId(){
     int id;
     int aux;
@@ -70,7 +57,7 @@ int Movimiento::autogenerarId(){
     fseek(pMov, 0 ,SEEK_END);
     if (ftell(pMov)==0){return 1;}// si está vacio el archivo
 
-    fseek(pMov, (-1)*sizeof(Movimiento) ,SEEK_END);
+    fseek(pMov, -sizeof(Movimiento) ,2);
     aux=fread(this ,sizeof(Movimiento),1,pMov);
     if (aux!=1){return -2;} // error de fread
 
@@ -105,7 +92,6 @@ void Movimiento::Cargar(){
         crearRegistroServicio(_id);
     }
 
-    /* SOLO PREGUNTAR SI ES UN EGRESO Y SEGÚN CATEGORIA INGRESADA ¡¡¡¡CHARLAR!!! */
     if (auxI==1 || auxI==2 || auxI==3) {
         _siGastoFijo=false;
     }else{
@@ -125,6 +111,7 @@ void Movimiento::Cargar(){
 }
 
 void Movimiento::Mostrar(){
+    
     cout<<"ID                    :";
     cout<<getId()<<endl;
     cout<<"FECHA DE LA OPERACION :";
@@ -133,6 +120,8 @@ void Movimiento::Mostrar(){
     cout<<getImporte()<<endl;
     cout<<"CATEGORIA             :";
     cout<<getCategoria()<<endl;
+    cout<<"ESTADO: ";
+    cout<<getEstado()<<endl;
     
     if (getCategoria()==7) {
         mostrarServicio(getId());

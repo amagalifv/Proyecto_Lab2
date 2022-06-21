@@ -36,11 +36,11 @@ class MovimientoServicio{
 };
 
 void MovimientoServicio::Mostrar(){
-    cout<<"\tSERVICIO:  \n";
-    cout<<"\t\tID: "<<getId()<<endl;
-    cout<<"\t\tDESCRIPCION:  "<<getDescripcion()<<endl;
-    cout<<"\t\tCONSUMO:  "<<getConsumo()<<endl;
-    cout<<"\t\tMEDIDA:  "<<uniMedida[getMedida()-1]<<endl;
+    cout<<"DETALLE DEL SERVICIO  :\n";
+    cout<<"\t\t\tID: "<<getId()<<endl;
+    cout<<"\t\t\tDESCRIPCION:  "<<getDescripcion()<<endl;
+    cout<<"\t\t\tCONSUMO:  "<<getConsumo()<<endl;
+    cout<<"\t\t\tMEDIDA:  "<<uniMedida[getMedida()-1]<<endl;
 }
 
 void MovimientoServicio::Cargar(int id){

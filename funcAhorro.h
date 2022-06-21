@@ -25,18 +25,19 @@ int menuKakebo(){
     float auxFloat=0;
 
     while(true){
-        cout<<"*****************************************"<<endl;
-        cout<<"************** MENU KAKEBO **************"<<endl;
-        cout<<"*****************************************"<<endl;
-        cout<<"    1. DEFINIR AHORRO DEL MES"<<endl;
-        cout<<"    2. MODIFICAR AHORRO DEL MES"<<endl;
-        cout<<"    3. VER SALDO DISPONIBLE"<<endl;
-        cout<<"    4. VER PROMEDIO DIARIO DISPONIBLE"<<endl;
-        cout<<"    5. SIMULACION: QUIERO AHORRAR PARA..."<<endl;
-        cout<<"    6. VER SI LOGRE LA META DE AHORRO"<<endl;
-        cout<<"*****************************************"<<endl;
-        cout<<"    0. VOLVER AL MENU PRINCIPAL"<<endl;
-        cout<<"*****************************************"<<endl;
+        cout<<"*********************************************"<<endl;
+        cout<<"                 MENU KAKEBO                 "<<endl;
+        cout<<"*********************************************"<<endl;
+        cout<<"      1) DEFINIR AHORRO DEL MES"<<endl;
+        cout<<"      2) MODIFICAR AHORRO DEL MES"<<endl;
+        cout<<"      3) CONSULTAR AHORRO DEFINIDO"<<endl;
+        cout<<"      4) VER SALDO DISPONIBLE"<<endl;
+        cout<<"      5) VER PROMEDIO DIARIO DISPONIBLE"<<endl;
+        cout<<"      6) SIMULACION: QUIERO AHORRAR PARA..."<<endl;
+        cout<<"      7) VER SI LOGRE LA META DE AHORRO"<<endl;
+        cout<<"*********************************************"<<endl;
+        cout<<"      0) VOLVER AL MENU PRINCIPAL"<<endl;
+        cout<<"*********************************************"<<endl;
         cout<<"SELECCIONE UNA DE LAS OPCIONES: ";
         cin>>opc;
         system("cls");
@@ -53,20 +54,25 @@ int menuKakebo(){
 
             //3. VER SALDO DISPONIBLE
             case 3: 
+                cout<<"Ahorro del mes definido:  $"<<consultarAhorroDefinido();
+                break;
+
+            //4. VER SALDO DISPONIBLE
+            case 4: 
                 cout<<"El total de dinero disponible que tenes para gastar a lo largo del mes es $"<<calcularSaldoDisponibleMesActual();
                 break;
 
-            //4. VER PROMEDIO DIARIO DISPONIBLE
-            case 4: auxFloat=calcularPromedioDiarioSaldo();
+            //5. VER PROMEDIO DIARIO DISPONIBLE
+            case 5: auxFloat=calcularPromedioDiarioSaldo();
                 cout<<"El promedio diario de dinero disponible que tenes para gastar a lo largo del mes es $"<<auxFloat<<endl;
                 break;
 
-            //5. SIMULACION: QUIERO AHORRAR PARA...
-            case 5: quieroAhorrarPara();
+            //6. SIMULACION: QUIERO AHORRAR PARA...
+            case 6: quieroAhorrarPara();
                 break;
 
-            //6. VER SI LOGRE LA META DE AHORRO
-            case 6: cout<<"Ingrese mes a consultar: ";
+            //7. VER SI LOGRE LA META DE AHORRO
+            case 7: cout<<"Ingrese mes a consultar: ";
                 cin>>mes;
                 cout<<"Ingrese anio a consultar: ";
                 cin>>anio;
@@ -289,6 +295,14 @@ bool modificarAhorroMes(){
 
     return resultado;
 }
+float consultarAhorroDefinido(){
+    Ahorro reg;
+    int posDisco=0;
+
+    reg.leerDeDisco(-8);
+
+    return reg.getMontoAhorro();     
+}
 void mostrarArchivoAhorro(){
     Ahorro reg;
     int posDisco=0;
@@ -404,7 +418,8 @@ bool opcionEgresoValida(Categoria *arrayCateg, int cantidad, int opc){
 }
 void quieroAhorrarPara(){
 
-    Fecha fechaHoy;
+    Fecha fechaHoy;  //devuelveFechaActualSistema(&fechaHoy);
+
     Fecha fechaFutura;
     int opcion=0;
     float necesitoAhorrar=0;

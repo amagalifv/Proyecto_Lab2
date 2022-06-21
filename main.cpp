@@ -14,24 +14,6 @@
 
 using namespace std;
 
-/***************************************************************
-****************************************************************
-POR HACER
-CODIGO AUTOINCREMENTABLE (HECHO)
-VALIDAR CODIGO TIPO OPERACION 1 Y 2 (HECHO)
-PASAR A MAYUSCULAS LAS CADENAS (HECHO)
-VALIDAR QUE NO HAYA REPETIDOS (HECHO)
-LISTAR CATEGORIAS (HECHO)
-LISTAR CATEGORIAS POR ID (HECHO)
-CREAR DATOS DE INICIO (HECHO)
-CREAR FUNCION DATOS DE INCIO (HECHO)
-***************************************************************
-***************************************************************/
-
-// A REVISAR:
-//  - MUESTRA ERRONEAMENTE LOS MOVIMIENTOS SERVICIOS, BUCLE Y NO SIGUE LISTANDO
- 
-
 int main () {
     // Movimiento reg;
     // for(int i=0; i<17; i++){
@@ -49,23 +31,27 @@ int main () {
     // while(reg.leerDeDisco(posDisco++)==1){
     //     reg.Mostrar();
     // }
-
     // system("pause");
 
     int opc;
 
     while(true){
-        system("cls");
-        cout<<"****************************"<<endl;
-        cout<<"****** MENU PRINCIPAL ******"<<endl;
-        cout<<"****************************"<<endl;
-        cout<<"    1. MENU MOVIMIENTO"<<endl;
-        cout<<"    2. MENU CATEGORIAS"<<endl;
-        cout<<"    3. MENU KAKEBO"<<endl;
-        cout<<"    4. INFORMES"<<endl;
-        cout<<"    5. CONFIGURACION"<<endl;
-        cout<<"    0. FIN DEL PROGRAMA"<<endl;
-        cout<<"****************************"<<endl;
+        cout<<"IMPORTANTE!"<<endl;
+        cout<<"LOTE DE PRUEBA CON DATOS CARGADOS:"<<endl;
+        cout<<"PERIODOS 06/2021 Y 07/2021"<<endl;
+        
+        cout<<"************************************\n";
+        cout<<"           MENU PRINCIPAL           \n";
+        cout<<"************************************\n";
+        cout<<"      1) MENU MOVIMIENTOS           \n";
+        cout<<"      2) MENU CATEGORIAS            \n";
+        cout<<"      3) MENU KAKEBO                \n";
+        cout<<"      4) MENU INFORMES              \n";
+        cout<<"      5) MENU CONFIGURACION         \n";
+        cout<<"************************************\n";
+        cout<<"      0) FIN DEL PROGRAMA           \n";
+        cout<<"************************************\n";
+        cout<<endl;
         cout<<"SELECCIONE UNA DE LAS OPCIONES: ";
         cin>>opc;
         system("cls");
@@ -84,8 +70,10 @@ int main () {
                 break;
 
             //4. MENU INFORMES
-            // case 4: menuInformes();
-            //     break;
+            case 4: //menuInformes();
+            cout<<"En construccion..."<<endl;
+                system("pause");
+                break;
 
             //5. MENU CONFIGURACION
             case 5: menuConfiguracion();
@@ -96,6 +84,7 @@ int main () {
                 break;
         }
         cout<<endl;
+        //system("pause");
         system("cls");
     }
 

@@ -18,21 +18,21 @@ int menuConfiguracion(){
 
     while(true){
         cout<<"****************************************"<<endl;
-        cout<<"********** MENU CONFIGURACION **********"<<endl;
+        cout<<"           MENU CONFIGURACION           "<<endl;
         cout<<"****************************************"<<endl;
-        cout<<"    1. BACKUP COMPLETO DEL SISTEMA"<<endl;
-        cout<<"    2. BACKUP MOVIMIENTOS"<<endl;
-        cout<<"    3. BACKUP AHORRO"<<endl;
-        cout<<"    4. RESTAURAR TODO EL SISTEMA"<<endl;
-        cout<<"    5. RESTAURAR MOVIMIENTOS"<<endl; //BORRAR TAMBIEN MOVIMIENTOSSERVICIOS!!!
-        cout<<"    6. RESTAURAR AHORRO"<<endl;
-        cout<<"    --------------- ocultar luego ---------------- "<<endl;
-        cout<<"    7. CARGAR DATOS DE INICIO"<<endl;
-        cout<<"    8. GENERAR DATOS DE INICIO"<<endl;
-        cout<<"    9. BACKUP CATEGORIAS"<<endl;
-        cout<<"    10. RESTAURAR CATEGORIAS"<<endl;
+        cout<<"      1) BACKUP COMPLETO DEL SISTEMA"<<endl;
+        cout<<"      2) BACKUP MOVIMIENTOS"<<endl;
+        cout<<"      3) BACKUP AHORRO"<<endl;
+        cout<<"      4) RESTAURAR TODO EL SISTEMA"<<endl;
+        cout<<"      5) RESTAURAR MOVIMIENTOS"<<endl; //BORRAR TAMBIEN MOVIMIENTOSSERVICIOS!!!
+        cout<<"      6) RESTAURAR AHORRO"<<endl;
+        cout<<"      ------- OPCIONES PROG --------- "<<endl;
+        cout<<"      7) CARGAR DATOS DE INICIO"<<endl;
+        cout<<"      8) GENERAR DATOS DE INICIO"<<endl;
+        cout<<"      9) BACKUP CATEGORIAS"<<endl;
+        cout<<"      1). RESTAURAR CATEGORIAS"<<endl;
         cout<<"****************************************"<<endl;
-        cout<<"    0. VOLVER AL MENU PRINCIPAL"<<endl;
+        cout<<"      0) VOLVER AL MENU PRINCIPAL"<<endl;
         cout<<"****************************************"<<endl;
         cout<<"SELECCIONE UNA DE LAS OPCIONES: ";
         cin>>opc;

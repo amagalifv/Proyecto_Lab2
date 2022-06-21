@@ -6,8 +6,6 @@
 
 using namespace std;
 
-void mostrarArchivoAhorro();
-
 //ARCHIVOS DAT
 //const char *AR_MOVIMIENTOS = "movimientos.dat"; //evaluar cambiar nombre por "DAT_MOVIMIENTOS"
 const char *AR_MOVIMIENTOS = "movimientos.dat"; //evaluar cambiar nombre por "DAT_MOVIMIENTOS"
@@ -34,13 +32,14 @@ void mensajeOperacion(bool resultado);
 void mensajesListados(const char *mensaje);
 
 //---MOVIMIENTOS SERVICIOS---
-int buscarPorId (int);
 void crearRegistroServicio(int);
 void bajaLogicaServicio(int);
+int buscarPorIdServ (int);
 
 //--------MOVIMIENTOS---------
 void listarMovimientos();
-int bajaLogica (int pos);
+int buscarPorIdMov (int &id);
+int bajaLogica(int);
 int modificarRegistro(int id);
 void mostrarServicio(int id);
 
@@ -66,6 +65,8 @@ bool validarMontoAhorro(float, int, int);
 int existeRegistro(int anio, int mes);
 void definirAhorroMes();
 bool modificarAhorroMes();
+float consultarAhorroDefinido();
+void mostrarArchivoAhorro();
 float buscarAhorroPorMesAnio(int, int);
 float calcularSaldoDisponibleMesActual();
 float calcularSaldoDisponibleMesPuntual(int, int);
