@@ -37,10 +37,9 @@
 		<Unit filename="clsFecha.h" />
 		<Unit filename="clsMovimiento.h" />
 		<Unit filename="clsMovimientoServicio.h" />
+		<Unit filename="funcAhorro.h" />
 		<Unit filename="funcCategoria.h" />
 		<Unit filename="funcConfiguracion.h" />
-		<Unit filename="funcInformes.h" />
-		<Unit filename="funcKakebo.h" />
 		<Unit filename="funcMovimiento.h" />
 		<Unit filename="funcMovimientoServicio.h" />
 		<Unit filename="main.cpp" />

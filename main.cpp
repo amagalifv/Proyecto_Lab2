@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h> // Añade paquete de idiomas
 
 #include "prototipos.h"
 #include "clsMovimiento.h"
@@ -15,6 +16,8 @@
 using namespace std;
 
 int main () {
+    setlocale(LC_ALL, "spanish");
+
     // Movimiento reg;
     // for(int i=0; i<17; i++){
     //     reg.Cargar();

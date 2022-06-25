@@ -13,7 +13,7 @@ class Categoria{
     private:
         int _id;                 // autoincrementable
         int _tipoMovimiento;     //1 para ingreso, 2 para egreso
-        char _nombre[20]={0};    //supermercado, servicio, indumentaria, farmacia, restaurante, ocio, viajes , educación, etc
+        char _nombre[20];    //supermercado, servicio, indumentaria, farmacia, restaurante, ocio, viajes , educación, etc
 
         //METODOS
         int proximoId();
@@ -79,7 +79,8 @@ int Categoria::leerDeDisco(int pos){
     }
 
     if( pos == -8){
-        fseek(archivo, ftell(archivo)-sizeof(Categoria), SEEK_END);
+        fseek(archivo, 0 ,SEEK_END);
+        fseek(archivo, -sizeof(Categoria), SEEK_END);
         leyo=fread(this, sizeof(Categoria), 1, archivo);
     }
     else{

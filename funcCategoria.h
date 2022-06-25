@@ -25,8 +25,9 @@ int menuCategorias(){
         cout<<"            MENU CATEGORIAS            "<<endl;
         cout<<"***************************************"<<endl;
         cout<<"      1) AGREGAR CATEGORIA"<<endl;
-        cout<<"      2) LISTAR CATEGORIA POR ID"<<endl;
-        cout<<"      3) LISTAR TODAS LAS CATEGORIAS"<<endl;
+        cout<<"      2) MODIFICAR CATEGORIA"<<endl;
+        cout<<"      3) LISTAR CATEGORIA POR ID"<<endl;
+        cout<<"      4) LISTAR TODAS LAS CATEGORIAS"<<endl;
         cout<<"***************************************"<<endl;
         cout<<"      0) VOLVER AL MENU PRINCIPAL"<<endl;
         cout<<"***************************************"<<endl;
@@ -39,8 +40,14 @@ int menuCategorias(){
             case 1: agregarCategoria();
                 break;
 
-            //2. LISTAR CATEGORIA POR ID
-            case 2: cout<<"Ingrese el codigo de la categoria a mostrar: ";
+            //2. MODIFICAR CATEGORIA
+            case 2: cout<<"Ingrese el codigo de la categoria a modificar: ";
+                cin>>cod;
+                mensajeOperacion(modificarCategoria(cod));
+                break;
+
+            //3. LISTAR CATEGORIA POR ID
+            case 3: cout<<"Ingrese el codigo de la categoria a mostrar: ";
                 cin>>cod;
                 cout<<endl;
                 if(listarCategoriaPorId(cod)==-1){
@@ -48,8 +55,8 @@ int menuCategorias(){
                 }
                 break;
 
-            //3. LISTAR TODAS LAS VENTAS
-            case 3: contador=listarCategorias();
+            //4. LISTAR TODAS LAS VENTAS
+            case 4: contador=listarCategorias();
                 cout<<"Total de categorias: "<<contador<<endl;
                 break;
 
@@ -78,11 +85,11 @@ void agregarCategoria(){
     }
     
     cout<<"NOMBRE CATEGORIA: ";
-    cargarCadena(auxChar,20);    
+    cargarCadena(auxChar,19);    
     while (esRepetido(auxChar)){
         cout<<"Ha ingresado una categoria repetida, ingresela nuevamente: "<<endl;
         cout<<"CATEGORIA: ";
-        cargarCadena(auxChar,20);    
+        cargarCadena(auxChar,19);    
     }    
 
     reg.Cargar(auxInt, auxChar);
@@ -90,6 +97,59 @@ void agregarCategoria(){
     cout<<endl;
     mensajesListados("REGISTRO AGREGADO");
     reg.Mostrar();
+}
+int buscarCategoriaCodigo(int codCateg){
+    int i=0;
+    Categoria cate;
+
+    while (cate.leerDeDisco(i)==1) {
+        if (cate.getId()==codCateg) {
+            return i;
+        }
+        i++;
+    }
+
+    return -1;
+}
+bool modificarCategoria(int codCateg){
+    int opc=0;
+    char nombreCateg[20];
+    Categoria reg;
+
+    if(codCateg==0){
+        cout<<"Proceso cancelado!"<<endl;
+        return 0;
+    }
+
+    int posDisco=buscarCategoriaCodigo(codCateg);
+
+    while(posDisco==-1){
+        cout<<"La no existe el codigo de categoria seleccionado. Escribalo nuevamente: ";
+        cin>>opc;
+        posDisco=buscarCategoriaCodigo(opc);
+    }
+    reg.leerDeDisco(posDisco);
+
+    cout<<"Seleccione 1 para modificar el tipo de gasto o 2 para modificar el nombre de la categoria (0 para salir): "<<endl;
+    cin>>opc;
+    if(opc==1){
+        cout<<"Ingrese 1 para ingreso, 2 para egreso: ";
+        cin>>opc;
+        while(opc!=1 && opc!=2){
+            cout<<"Opcion ingresada inválida. Escríbala nuevamente: ";
+            cin>>opc;
+        }
+        reg.setTipoMov(opc);
+    }
+    else{
+        if(opc==2){
+            cout<<"Escriba el nombre de la categoria: ";
+            cargarCadena(nombreCateg,19);
+            reg.setNombre(nombreCateg);
+        }
+    }
+    return(reg.grabarEnDisco(posDisco));
+
 }
 bool esMovimientoValido(int mov){
     if(mov==1 || mov==2){
@@ -211,6 +271,19 @@ void mostrarEgresosArrayCategorias(Categoria *arrayCategorias, int cantidad){
         }
     }
 }
+void listarCategoriasAcotado(){
+    int i=0;
+    Categoria cate;
+
+    cout<<"CATEGORIAS: ";
+    while (cate.leerDeDisco(i)==1) {
+        cout<<cate.getId()<<", ";
+        cout<<cate.getNombre()<<endl;
+        i++;
+    }
+}
+
+
 //FIN FUNCIONES
 
 

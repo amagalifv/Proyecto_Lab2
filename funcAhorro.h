@@ -53,12 +53,12 @@ int menuKakebo(){
                 break;
 
             //3. VER SALDO DISPONIBLE
-            case 3: 
+            case 3:
                 cout<<"Ahorro del mes definido:  $"<<consultarAhorroDefinido();
                 break;
 
             //4. VER SALDO DISPONIBLE
-            case 4: 
+            case 4:
                 cout<<"El total de dinero disponible que tenes para gastar a lo largo del mes es $"<<calcularSaldoDisponibleMesActual();
                 break;
 
@@ -76,7 +76,7 @@ int menuKakebo(){
                 cin>>mes;
                 cout<<"Ingrese anio a consultar: ";
                 cin>>anio;
-                
+
                 mensajesListados("VER RESULTADO META DE AHORRO");
                 cout<<"Mes: "<<mes<<endl;
                 cout<<"Anio: "<<anio<<endl;
@@ -220,9 +220,9 @@ float calcularGastoFijo(int anio, int mes){
     return totalGastoFijo;
 }
 bool validarMontoAhorro(float montoAhorro, int anio, int mes){
-    
+
     cout<<endl;
-    
+
     //VER QUE PASA SI LOS GASTOS CARGADOS SON MAYORES QUE LOS INGRESOS
     int totalIngresos=calcularIngresos(anio, mes);
     int totalEgresos=calcularEgresos(anio, mes);
@@ -264,7 +264,6 @@ int existeRegistro(int anio, int mes){
     return posDisco;
 }
 void definirAhorroMes(){
-    float ahorroMes=0;
     Ahorro reg;
 
     mensajesListados("DEFINIR AHORRO DEL MES");
@@ -278,7 +277,6 @@ void definirAhorroMes(){
 }
 bool modificarAhorroMes(){
     Ahorro reg;
-    int posDisco=0;
     float ahorroMes=0;
     bool resultado=false;
 
@@ -297,11 +295,10 @@ bool modificarAhorroMes(){
 }
 float consultarAhorroDefinido(){
     Ahorro reg;
-    int posDisco=0;
 
     reg.leerDeDisco(-8);
 
-    return reg.getMontoAhorro();     
+    return reg.getMontoAhorro();
 }
 void mostrarArchivoAhorro(){
     Ahorro reg;
@@ -336,9 +333,9 @@ float calcularSaldoDisponibleMesActual(){
     if(montoAhorro==-1){
         montoAhorro=0;
     }
-    
-    return totalIngresos-totalEgresos-montoAhorro;       
-}    
+
+    return totalIngresos-totalEgresos-montoAhorro;
+}
 float calcularSaldoDisponibleMesPuntual(int anio, int mes){
     Ahorro reg;
     float totalIngresos=calcularIngresos(anio, mes);
@@ -348,9 +345,9 @@ float calcularSaldoDisponibleMesPuntual(int anio, int mes){
     if(montoAhorro==-1){
         montoAhorro=0;
     }
-    
-    return totalIngresos-totalEgresos-montoAhorro;       
-}    
+
+    return totalIngresos-totalEgresos-montoAhorro;
+}
 float calcularPromedioDiarioSaldo(){
     Ahorro reg;
     int diasDelMes=0;
@@ -358,7 +355,7 @@ float calcularPromedioDiarioSaldo(){
 
     reg.leerDeDisco(-8);
 
-    int anio=reg.getFecha().getAnio();  //migrar a objeto fecha
+    //int anio=reg.getFecha().getAnio();  //migrar a objeto fecha
     int mes=reg.getFecha().getMes();
     int dia;
 
@@ -424,7 +421,7 @@ void quieroAhorrarPara(){
     int opcion=0;
     float necesitoAhorrar=0;
     int mesesDisponibles=0;
-    int aniosDisponibles=0;
+    //int aniosDisponibles=0;
 
     Categoria *arrayCategorias;
     //por qué si genero el array en una función externa no funciona? si la paso la pos de memoria?
@@ -443,7 +440,7 @@ void quieroAhorrarPara(){
     }
 
     copiarArchivoCategoriasAlArray(arrayCategorias);
-        
+
     cout<<"Ingrese la fecha de hoy: ";  //migrar a obtener fecha del sistema
     fechaHoy.Cargar();
 
@@ -452,7 +449,7 @@ void quieroAhorrarPara(){
     mostrarEgresosArrayCategorias(arrayCategorias, cantidad);
     cout<<"Indique el codigo de categoria del rubro a simular: ";
     cin>>opcion;
-    
+
     while(!opcionEgresoValida(arrayCategorias, cantidad, opcion)){
         cout<<"El codigo elegido no corresponde a una categoria del listado, escriba nuevamente: ";
         cin>>opcion;
@@ -480,6 +477,11 @@ void quieroAhorrarPara(){
 
     cout<<"Ingrese la fecha en la que desea concretar dicha compra: ";
     fechaFutura.Cargar(false);
+
+    while(fechaFutura.getMes()<=fechaHoy.getMes()){
+        cout<<"El ahorro debe ser a futuro. Escriba nuevamente la fecha: "<<endl;
+        fechaFutura.Cargar(false);
+    }
 
     mesesDisponibles=calcularMeses(fechaHoy, fechaFutura);
 

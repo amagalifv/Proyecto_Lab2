@@ -47,8 +47,6 @@ class Ahorro{
 
 bool Ahorro::Cargar(){
     int auxFloat=0;
-    float totalIngresos=0;
-    float totalEgresos=0;
     int posDisco=0;
 
     cout<<"Fecha: "<<endl;
@@ -97,7 +95,8 @@ int Ahorro::leerDeDisco(int pos){
     }
 
     if( pos == -8){
-        fseek(archivo, ftell(archivo)-sizeof(Ahorro), SEEK_END);
+        fseek(archivo, 0 ,SEEK_END);
+        fseek(archivo, -sizeof(Ahorro), SEEK_END);
         leyo=fread(this, sizeof(Ahorro), 1, archivo);
     }
     else{

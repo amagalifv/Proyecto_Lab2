@@ -42,6 +42,7 @@ int buscarPorIdMov (int &id);
 int bajaLogica(int);
 int modificarRegistro(int id);
 void mostrarServicio(int id);
+bool siCategoriaValida(int cate);
 
 int menuMovimientos();
 
@@ -49,12 +50,15 @@ int menuMovimientos();
 int menuCategorias();
 int proximoId();
 void agregarCategoria();
+int buscarCategoriaCodigo(int codCateg);
+bool modificarCategoria(int codCateg);
 bool esMovimientoValido(int);
 bool esRepetido(const char *);
 int listarCategorias();
 int listarCategoriaPorId(int);
 bool esGastoFijo(int, int, int);
 int calcularCantidadCategorias();
+void listarCategoriasAcotado();
 
 //----------KAKEBO / AHORRO-----------
 int menuKakebo();
@@ -105,7 +109,6 @@ bool cargarDatosDeInicio();
 //a la funcion cargar cadena la mejore usando toUpper(case)
 void cargarCadena(char *palabra, int tamano){
     int i=0;
-    int j=0;
     fflush(stdin);
     for (i=0; i<tamano; i++){
         palabra[i]=toupper(cin.get());
@@ -116,25 +119,6 @@ void cargarCadena(char *palabra, int tamano){
 
     palabra[i]='\0';
     fflush(stdin);
-
-    //fuerzo a que el usuario cargue un nombre menor al permitido
-    while(strlen(palabra)>=tamano){
-        j=i-1;
-
-        while(palabra[j]!='\0'){
-            cout<<"Nombre muy largo, reescribalo: ";
-            fflush(stdin);
-            for (j=0; j<tamano; j++){
-                palabra[j]=cin.get();
-                if (palabra[j]=='\n'){
-                    break;
-                }
-            }
-            palabra[j]='\0';
-            fflush(stdin);
-
-        }
-    }
 }
 void mensajeOperacion(bool resultado){
     if (resultado){

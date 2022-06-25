@@ -7,14 +7,13 @@
 #include "clsCategoria.h"
 #include "clsAhorro.h"
 #include "prototipos.h"
+
 using namespace std;
 
 
 //FUNCIONES
 int menuConfiguracion(){
     int opc=0;
-    int cod=0;
-    int contador=0;
 
     while(true){
         cout<<"****************************************"<<endl;
@@ -205,7 +204,7 @@ bool restaurarBkpMovimientos(){
     //eliminarArchivoOrigen=fopen("movimientos.dat", "wb");
     eliminarArchivoOrigen=fopen(AR_MOVIMIENTOS, "wb");
     fclose(eliminarArchivoOrigen);
-    
+
     //restaurarArchivoBkp=fopen("movimientos.bkp","rb");
     restaurarArchivoBkp=fopen(BKP_MOVIMIENTOS,"rb");
 
@@ -222,7 +221,7 @@ bool restaurarBkpMovimientos(){
     if (!restaurarBkpMovimientosServicios() || posDisco==0){
         resultado=false;
     }
-    
+
     fclose(restaurarArchivoBkp);
     return resultado;
 }
@@ -236,7 +235,7 @@ bool restaurarBkpMovimientosServicios(){
     //eliminarArchivoOrigen=fopen("movimientosServicios.dat", "wb");
     eliminarArchivoOrigen=fopen(AR_MOVIMIENTOSERVICIOS, "wb");
     fclose(eliminarArchivoOrigen);
-    
+
     ///restaurarArchivoBkp=fopen("movimientosServicios.bkp","rb");
     restaurarArchivoBkp=fopen(BKP_MOVIMIENTOSERVICIOS,"rb");
 
@@ -266,7 +265,7 @@ bool restaurarBkpCategorias(){
     //eliminarArchivoOrigen=fopen("categorias.dat", "wb");
     eliminarArchivoOrigen=fopen(AR_CATEGORIAS, "wb");
     fclose(eliminarArchivoOrigen);
-    
+
     //restaurarArchivoBkp=fopen("categorias.bkp","rb");
     restaurarArchivoBkp=fopen(BKP_CATEGORIAS,"rb");
 
@@ -295,7 +294,7 @@ bool restaurarBkpAhorross(){
     //eliminarArchivoOrigen=fopen("ahorro.dat", "wb");
     eliminarArchivoOrigen=fopen(AR_AHORRO, "wb");
     fclose(eliminarArchivoOrigen);
-    
+
     //restaurarArchivoBkp=fopen("ahorro.bkp","rb");
     restaurarArchivoBkp=fopen(BKP_AHORRO,"rb");
 
@@ -446,7 +445,7 @@ bool cargarDatosInicioMovimientos(){
     //eliminarArchivoOrigen=fopen("movimientos.dat", "wb");
     eliminarArchivoOrigen=fopen(AR_MOVIMIENTOS, "wb");
     fclose(eliminarArchivoOrigen);
-    
+
     //restaurarArchivoBkp=fopen("movimientos.ini","rb");
     restaurarArchivoBkp=fopen(INI_MOVIMIENTOS,"rb");
 
@@ -462,7 +461,7 @@ bool cargarDatosInicioMovimientos(){
     if (!cargarDatosInicioMovimientosServicios() || posDisco==0){
         resultado=false;
     }
-    
+
     fclose(restaurarArchivoBkp);
     return resultado;
 }
@@ -476,7 +475,7 @@ bool cargarDatosInicioMovimientosServicios(){
     //eliminarArchivoOrigen=fopen("movimientosServicios.dat", "wb");
     eliminarArchivoOrigen=fopen(AR_MOVIMIENTOSERVICIOS, "wb");
     fclose(eliminarArchivoOrigen);
-    
+
     //restaurarArchivoBkp=fopen("movimientosServicios.ini","rb");
     restaurarArchivoBkp=fopen(INI_MOVIMIENTOSERVICIOS,"rb");
 
@@ -506,7 +505,7 @@ bool cargarDatosInicioCategorias(){
     //eliminarArchivoOrigen=fopen("categorias.dat", "wb");
     eliminarArchivoOrigen=fopen(AR_CATEGORIAS, "wb");
     fclose(eliminarArchivoOrigen);
-    
+
     //restaurarArchivoBkp=fopen("categorias.ini","rb");
     restaurarArchivoBkp=fopen(INI_CATEGORIAS,"rb");
 
@@ -535,7 +534,7 @@ bool cargarDatosInicioAhorros(){
     //eliminarArchivoOrigen=fopen("ahorros.dat", "wb");
     eliminarArchivoOrigen=fopen(AR_AHORRO, "wb");
     fclose(eliminarArchivoOrigen);
-    
+
     //restaurarArchivoBkp=fopen("ahorros.ini","rb");
     restaurarArchivoBkp=fopen(INI_AHORRO,"rb");
 
@@ -564,7 +563,7 @@ bool cargarDatosDeInicio(){
         }
     }
 
-    return false; 
+    return false;
 }
 //FIN FUNCIONES
 

@@ -6,6 +6,7 @@
 # include<cstring>
 using namespace std;
 
+#include "funcCategoria.h"
 #include "clsMovimiento.h"
 
 /* LISTA TODOS LOS MOVIMIENTOS */
@@ -80,7 +81,7 @@ int modificarRegistro(int id){
     char resp;
     int devol;
 
-    mov.leerDeDisco(id);
+    mov.leerDeDisco(id-1);
 
     cout<<"      ¿QUE DESEA MODIFICAR?    \n";
     cout<<"1) FECHA DE MOVIMIENTO         \n";
@@ -120,6 +121,18 @@ int modificarRegistro(int id){
     devol=mov.modificarDeDisco(id-1);
 
     return devol;
+}
+
+bool siCategoriaValida(int cate){
+    int pos;
+
+    pos=buscarCategoriaCodigo(cate);
+    
+    if (pos>=0) {
+        return true;
+    }
+
+    return false;
 }
 
 int menuMovimientos(){

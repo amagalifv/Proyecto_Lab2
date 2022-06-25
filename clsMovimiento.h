@@ -5,6 +5,7 @@ using namespace std;
 
 #include "prototipos.h"
 #include "clsFecha.h"
+#include "clsCategoria.h"
 
 class Movimiento {
     private:
@@ -84,9 +85,17 @@ void Movimiento::Cargar(){
     cin>>auxF;
     setImporte(auxF);
 
-    //LISTAR CATEGORIAS!!!! categoria y descripcion unicamente!!
+    listarCategoriasAcotado();
     cout<<"INGRESE LA CATEGORIA DESEADA: ";
     cin>>auxI;
+
+    while (!siCategoriaValida(auxI)) {
+        cout<<"\nCategoria no encontrada! Intentelo nuevamente\n";
+
+        cout<<"INGRESE LA CATEGORIA DESEADA: ";
+        cin>>auxI;
+    }
+
     setCategoria(auxI);
     if (auxI==7) {
         crearRegistroServicio(_id);
@@ -96,10 +105,10 @@ void Movimiento::Cargar(){
         _siGastoFijo=false;
     }else{
         cout<<"ES UN GASTO FIJO (S PARA SI Y N PARA NO): ";
-        resp=toupper(cin.get());
-        //cin>>toupper(resp);
-        //if (resp=='s' || resp=='S'){_siGastoFijo=true;}
-        if (resp=='S'){_siGastoFijo=true;}
+        //resp=toupper(cin.get());
+        cin>>resp;
+        if (resp=='s' || resp=='S'){_siGastoFijo=true;}
+        //if (resp=='S'){_siGastoFijo=true;}
         else {_siGastoFijo=false;}
     }
 
@@ -111,7 +120,9 @@ void Movimiento::Cargar(){
 }
 
 void Movimiento::Mostrar(){
-    
+    int pos;
+    Categoria cate;
+
     cout<<"ID                    :";
     cout<<getId()<<endl;
     cout<<"FECHA DE LA OPERACION :";
@@ -119,10 +130,14 @@ void Movimiento::Mostrar(){
     cout<<"IMPORTE               : $";
     cout<<getImporte()<<endl;
     cout<<"CATEGORIA             :";
-    cout<<getCategoria()<<endl;
-    cout<<"ESTADO: ";
-    cout<<getEstado()<<endl;
-    
+    cout<<getCategoria()<<", ";
+
+    pos=buscarCategoriaCodigo(getCategoria());
+    if (pos>=0){
+        cate.leerDeDisco(pos);
+        cout<<cate.getNombre()<<endl;
+    }
+
     if (getCategoria()==7) {
         mostrarServicio(getId());
     }

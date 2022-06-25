@@ -1,0 +1,147 @@
+# depslib dependency file v1.0
+1655820630 source:c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 4\main.cpp
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<locale.h>
+	"prototipos.h"
+	"clsMovimiento.h"
+	"clsMovimientoServicio.h"
+	"funcMovimiento.h"
+	"funcMovimientoServicio.h"
+	"funcCategoria.h"
+	"funcAhorro.h"
+	"funcConfiguracion.h"
+
+1655931539 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 4\prototipos.h
+	<iostream>
+	<cstring>
+
+1655931724 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 4\clsmovimiento.h
+	<iostream>
+	"prototipos.h"
+	"clsFecha.h"
+	"clsCategoria.h"
+
+1655776417 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 4\clsfecha.h
+	<iostream>
+	<ctime>
+
+1655776556 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 4\clsmovimientoservicio.h
+	<cstring>
+	"prototipos.h"
+
+1655823605 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 4\funcmovimiento.h
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	"funcCategoria.h"
+	"clsMovimiento.h"
+
+1655776621 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 4\funcmovimientoservicio.h
+	"prototipos.h"
+	"clsMovimientoServicio.h"
+
+1655930368 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 4\funccategoria.h
+	<string.h>
+	"clsCategoria.h"
+
+1655929947 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 4\clscategoria.h
+	"prototipos.h"
+	<string.h>
+	<iostream>
+
+1655931680 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 4\funcahorro.h
+	"prototipos.h"
+	"clsAhorro.h"
+	"clsMovimiento.h"
+	"clsCategoria.h"
+	"funcCategoria.h"
+
+1655931550 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 4\clsahorro.h
+	"clsFecha.h"
+	"prototipos.h"
+
+1655931617 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 4\funcconfiguracion.h
+	<string.h>
+	"clsMovimiento.h"
+	"clsMovimientoServicio.h"
+	"clsCategoria.h"
+	"clsAhorro.h"
+	"prototipos.h"
+
+1655820630 source:c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 5\main.cpp
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<locale.h>
+	"prototipos.h"
+	"clsMovimiento.h"
+	"clsMovimientoServicio.h"
+	"funcMovimiento.h"
+	"funcMovimientoServicio.h"
+	"funcCategoria.h"
+	"funcAhorro.h"
+	"funcConfiguracion.h"
+
+1655931539 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 5\prototipos.h
+	<iostream>
+	<cstring>
+
+1655931736 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 5\clsmovimiento.h
+	<iostream>
+	"prototipos.h"
+	"clsFecha.h"
+	"clsCategoria.h"
+
+1655776417 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 5\clsfecha.h
+	<iostream>
+	<ctime>
+
+1655929947 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 5\clscategoria.h
+	"prototipos.h"
+	<string.h>
+	<iostream>
+
+1655776556 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 5\clsmovimientoservicio.h
+	<cstring>
+	"prototipos.h"
+
+1655823605 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 5\funcmovimiento.h
+	<iostream>
+	<cstdlib>
+	<cstdio>
+	<cstring>
+	"funcCategoria.h"
+	"clsMovimiento.h"
+
+1655930368 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 5\funccategoria.h
+	<string.h>
+	"clsCategoria.h"
+
+1655776621 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 5\funcmovimientoservicio.h
+	"prototipos.h"
+	"clsMovimientoServicio.h"
+
+1655931680 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 5\funcahorro.h
+	"prototipos.h"
+	"clsAhorro.h"
+	"clsMovimiento.h"
+	"clsCategoria.h"
+	"funcCategoria.h"
+
+1655931550 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 5\clsahorro.h
+	"clsFecha.h"
+	"prototipos.h"
+
+1656081066 c:\users\somyc - veronica\onedrive\utn\3 cuatrimestre 2022 onedrive\prog y labo ii\laboratorio ii\tp final\vero\version 5\funcconfiguracion.h
+	<string.h>
+	"clsMovimiento.h"
+	"clsMovimientoServicio.h"
+	"clsCategoria.h"
+	"clsAhorro.h"
+	"prototipos.h"
+
