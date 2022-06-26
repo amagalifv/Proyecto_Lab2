@@ -16,7 +16,8 @@ class Fecha {
             _anio=anio;
         }
         void Mostrar();
-        void Cargar(bool siAnioFuturo);
+        void Cargar(bool siAnioFuturo=false);
+        int fConsolidada(){return ((_anio*10000)+(_mes*100)+(_dia));}
         ///gets()
         int getDia(){return _dia;}
         int getMes(){return _mes;}
@@ -46,7 +47,7 @@ void Fecha::Mostrar(){
     cout<<"/"<<getAnio()<<endl;
 }
 
-void Fecha::Cargar(bool siAnioFuturo=false){
+void Fecha::Cargar(bool siAnioFuturo){
     int dia, mes, anio;
 
     cout<<"INGRESE EL DIA:             ";
@@ -59,12 +60,19 @@ void Fecha::Cargar(bool siAnioFuturo=false){
     cin>>anio;
 
 
-    if (validarFecha(dia, mes, anio,siAnioFuturo)){
-        setDia(dia);setMes(mes);setAnio(anio);
-    } else{
-        cout<<"Fecha incorrecta, se guardará 0/0/0";
-        setDia(0);setMes(0);setAnio(0);
+    while (!validarFecha(dia, mes, anio, siAnioFuturo)){
+        cout<<"Fecha incorrecta, ingr�sela nuevamente: ";
+        cout<<"INGRESE EL DIA:             ";
+        cin>>dia;
+
+        cout<<"INGRESE EL MES:             ";
+        cin>>mes;
+
+        cout<<"INGRESE EL AÑO (4 digitos): ";
+        cin>>anio;
     }
+    
+    setDia(dia);setMes(mes);setAnio(anio);
 
 }
 /********************FUNCIONES FECHA********************/
@@ -75,7 +83,7 @@ bool validarFecha(int d, int m, int a, bool siAnioFutu){
     int anioActual;
 
     //chequear dia segun mes
-    if(d>=v[m-1]){
+    if(d>v[m-1]){
         if (d==29 && m==2 && a%4==0) {
             //chequear febrero y año bisiesto
             if (a%100==0 && a%400!=0){bandera=false;}
@@ -86,7 +94,7 @@ bool validarFecha(int d, int m, int a, bool siAnioFutu){
     //chequear mes
     if (m<1 || m>12){bandera=false;}
 
-    if (siAnioFutu==true) {
+    if (siAnioFutu==false) {
         //chequear año
         time_t fechaActual;
         time(&fechaActual);

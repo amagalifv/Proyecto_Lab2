@@ -58,7 +58,8 @@ bool Ahorro::Cargar(){
         cout<<"Monto que quiere ahorrar: $";
         cin>>auxFloat;
 
-        if(validarMontoAhorro(auxFloat, fechaAhorro.getAnio(), fechaAhorro.getMes())){
+        //if(validarMontoAhorro(auxFloat, fechaAhorro.getAnio(), fechaAhorro.getMes())){
+        if(validarMontoAhorro(auxFloat, fechaAhorro)){
             setMonto(auxFloat);
             return true;
         }
@@ -97,6 +98,7 @@ int Ahorro::leerDeDisco(int pos){
     if( pos == -8){
         fseek(archivo, 0 ,SEEK_END);
         fseek(archivo, -sizeof(Ahorro), SEEK_END);
+        //fseek(archivo, ftell(archivo)-sizeof(Ahorro), SEEK_SET);    //PROBAR
         leyo=fread(this, sizeof(Ahorro), 1, archivo);
     }
     else{

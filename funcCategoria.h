@@ -11,6 +11,7 @@ using namespace std;
 void copiarArchivoCategoriasAlArray(Categoria *arrayCategorias);
 int generarVectorDinamicoCategorias(Categoria *arrayCategorias);  //crea vector dinamico categ - func global
 void mostrarEgresosArrayCategorias(Categoria *arrayCategorias, int cantidad);
+void mostrarEgresosArrayCategoriasAcotado(Categoria *arrayCategorias, int cantidad);
 void mostrarIngesosArrayCategorias(Categoria *arrayCategorias, int cantidad);
 bool esEgreso(Categoria *arrayCategorias, int codCateg);
 //FIN PROTOTIPOS
@@ -272,11 +273,23 @@ void mostrarEgresosArrayCategorias(Categoria *arrayCategorias, int cantidad){
         }
     }
 }
+void mostrarEgresosArrayCategoriasAcotado(Categoria *arrayCategorias, int cantidad){
+    Categoria cate;
+
+    cout<<"CATEGORIAS: "<<endl;
+    for (int i=0; i<cantidad; i++){
+        if(arrayCategorias[i].getTipoMov()==2){
+            cout<<arrayCategorias[i].getId()<<", ";
+            cout<<arrayCategorias[i].getNombre()<<endl;
+        }
+    }
+    cout<<endl;
+}
 void listarCategoriasAcotado(){
     int i=0;
     Categoria cate;
 
-    cout<<"CATEGORIAS: ";
+    cout<<"CATEGORIAS: "<<endl;
     while (cate.leerDeDisco(i)==1) {
         cout<<cate.getId()<<", ";
         cout<<cate.getNombre()<<endl;

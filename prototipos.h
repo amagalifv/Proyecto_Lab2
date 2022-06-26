@@ -3,6 +3,7 @@
 
 #include<iostream>
 #include<cstring>
+#include "clsFecha.h"
 
 using namespace std;
 
@@ -59,13 +60,17 @@ int listarCategoriaPorId(int);
 bool esGastoFijo(int, int, int);
 int calcularCantidadCategorias();
 void listarCategoriasAcotado();
+void listarCategoriasEgresoAcotado();
 
 //----------KAKEBO / AHORRO-----------
 int menuKakebo();
-float calcularIngresos(int, int);
-float calcularEgresos(int, int);
-float calcularGastoFijo(int, int);
-bool validarMontoAhorro(float, int, int);
+//float calcularIngresos(int, int);
+//float calcularEgresos(int, int);
+float calcularEgresos(Fecha fecha);
+//float calcularGastoFijo(int, int);
+float calcularGastoFijo(Fecha Fecha);
+//bool validarMontoAhorro(float, int, int);
+bool validarMontoAhorro(float montoAhorro, Fecha fecha);
 int existeRegistro(int anio, int mes);
 void definirAhorroMes();
 bool modificarAhorroMes();
@@ -76,9 +81,24 @@ float calcularSaldoDisponibleMesActual();
 float calcularSaldoDisponibleMesPuntual(int, int);
 float calcularPromedioDiarioSaldo();
 void quieroAhorrarPara();
-bool logroMetaAhorro(int, int);
+//bool logroMetaAhorro(int, int);
+bool logroMetaAhorro(Fecha fecha);
 
 //---------INFORMES----------
+int calcularCantidadMovimientosAnio(int anio);
+void ponerMatrizEnCero(int **matrizCategMensual, int filas, int columnas);
+void ponerVectorEnCero(float *arrayAnual, int cant);
+void cargarMatrizCategMensual(int **matrizCategMensual);
+void mostrarMatriz(int **matrizCategMensual, int filas, int columnas);
+void mostrarMatrizPartida(int **matrizCategMensual, int filas, int columnas);
+void totalGastoCategMatriz();
+void cargarImportesEnVector(float *arrayAnual, int anio);
+void totalGastoCategoriaAnual(int anio);
+float sumarAcumuladoCategoriaPeriodo(int codCateg,int opc, Fecha fecha);
+float calcularConsumosCategorias(int codCateg, int opc, Fecha fechaActual, Fecha fecha2);
+void compararAhorroCategoriaPeriodos();
+void totalAhorroMensual();
+void totalAhorroAnual();
 
 int menuInformes();
 

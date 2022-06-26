@@ -23,6 +23,7 @@ int menuKakebo(){
     int anio=0;
     float montoAhorro=0;
     float auxFloat=0;
+    Fecha fechaActual;
 
     while(true){
         cout<<"*********************************************"<<endl;
@@ -72,16 +73,15 @@ int menuKakebo(){
                 break;
 
             //7. VER SI LOGRE LA META DE AHORRO
-            case 7: cout<<"Ingrese mes a consultar: ";
-                cin>>mes;
-                cout<<"Ingrese anio a consultar: ";
-                cin>>anio;
+            case 7: devuelveFechaActualSistema(&fechaActual);
+                mes=fechaActual.getMes();
+                anio=fechaActual.getAnio();
 
                 mensajesListados("VER RESULTADO META DE AHORRO");
                 cout<<"Mes: "<<mes<<endl;
                 cout<<"Anio: "<<anio<<endl;
 
-                if(logroMetaAhorro(anio, mes)){
+                if(logroMetaAhorro(fechaActual)){
                     montoAhorro=buscarAhorroPorMesAnio(anio, mes);
                     cout<<"Felicitaciones, has logrado ahorrar lo que te propusiste!"<<endl;
                     cout<<"Ahorro propuesto: $"<<montoAhorro<<endl;
@@ -102,13 +102,16 @@ int menuKakebo(){
     }
     return 0;
 }
-float calcularIngresos(int anio, int mes){
+//float calcularIngresos(int anio, int mes){
+float calcularIngresos(Fecha fecha){
     Categoria *arrayCategorias;
     int cantidad=0;
     Movimiento reg;
     int posDisco=0;
     int categoria=0;
     float totalIngresos=0;
+    int mes=fecha.getMes();
+    int anio=fecha.getAnio();
 
     cantidad=calcularCantidadCategorias();
     if (cantidad<=0){
@@ -141,13 +144,16 @@ float calcularIngresos(int anio, int mes){
 
     return totalIngresos;
 }
-float calcularEgresos(int anio, int mes){
+//float calcularEgresos(int anio, int mes){
+float calcularEgresos(Fecha fecha){
     Categoria *arrayCategorias;
     int cantidad=0;
     Movimiento reg;
     int posDisco=0;
     int categoria=0;
     float totalEgresos=0;
+    int anio=fecha.getAnio();
+    int mes=fecha.getMes();
 
     cantidad=calcularCantidadCategorias();
     if (cantidad<=0){
@@ -180,13 +186,16 @@ float calcularEgresos(int anio, int mes){
 
     return totalEgresos;
 }
-float calcularGastoFijo(int anio, int mes){
+//float calcularGastoFijo(int anio, int mes){
+float calcularGastoFijo(Fecha Fecha){
     Categoria *arrayCategorias;
     int cantidad=0;
     Movimiento reg;
     int posDisco=0;
     int categoria=0;
     float totalGastoFijo=0;
+    int anio=Fecha.getAnio();
+    int mes=Fecha.getMes();
 
     cantidad=calcularCantidadCategorias();
     if (cantidad<=0){
@@ -219,13 +228,16 @@ float calcularGastoFijo(int anio, int mes){
 
     return totalGastoFijo;
 }
-bool validarMontoAhorro(float montoAhorro, int anio, int mes){
+//bool validarMontoAhorro(float montoAhorro, int anio, int mes){
+bool validarMontoAhorro(float montoAhorro, Fecha fecha){
 
     cout<<endl;
 
     //VER QUE PASA SI LOS GASTOS CARGADOS SON MAYORES QUE LOS INGRESOS
-    int totalIngresos=calcularIngresos(anio, mes);
-    int totalEgresos=calcularEgresos(anio, mes);
+    //int totalIngresos=calcularIngresos(anio, mes);
+    int totalIngresos=calcularIngresos(fecha);
+    //int totalEgresos=calcularEgresos(anio, mes);
+    int totalEgresos=calcularEgresos(fecha);
     //int totalGastoFijo=calcularGastoFijo(anio, mes);
 
     if(totalIngresos==0 || totalEgresos==0){
@@ -285,7 +297,7 @@ bool modificarAhorroMes(){
     cout<<"Ingrese el nuevo monto a ahorrar: $";
     cin>>ahorroMes;
 
-    if(validarMontoAhorro(ahorroMes, reg.getFecha().getAnio(), reg.getFecha().getMes())){
+    if(validarMontoAhorro(ahorroMes, reg.getFecha())){
         reg.setMonto(ahorroMes);
         reg.grabarEnDisco(existeRegistro(reg.getFecha().getAnio(), reg.getFecha().getMes()));
         resultado=true;
@@ -323,12 +335,16 @@ float buscarAhorroPorMesAnio(int anio, int mes){
 float calcularSaldoDisponibleMesActual(){
     Ahorro reg;
     reg.leerDeDisco(-8);
-    int anio= reg.getFecha().getAnio();
-    int mes= reg.getFecha().getMes();
+    Fecha fecha=reg.getFecha();
+    int anio= fecha.getAnio();
+    int mes= fecha.getMes();
 
-    float totalIngresos=calcularIngresos(anio, mes);
-    float totalEgresos=calcularEgresos(anio, mes);
+    //float totalIngresos=calcularIngresos(anio, mes);
+    float totalIngresos=calcularIngresos(fecha);
+    //float totalEgresos=calcularEgresos(anio, mes);
+    float totalEgresos=calcularEgresos(fecha);
     float montoAhorro=buscarAhorroPorMesAnio(anio, mes);
+    
 
     if(montoAhorro==-1){
         montoAhorro=0;
@@ -338,9 +354,17 @@ float calcularSaldoDisponibleMesActual(){
 }
 float calcularSaldoDisponibleMesPuntual(int anio, int mes){
     Ahorro reg;
-    float totalIngresos=calcularIngresos(anio, mes);
-    float totalEgresos=calcularEgresos(anio, mes);
+
+    Fecha fecha;
+    fecha.setAnio(anio);
+    fecha.setMes(mes);
+
+    //float totalIngresos=calcularIngresos(anio, mes);
+    //float totalEgresos=calcularEgresos(anio, mes);
+    float totalIngresos=calcularIngresos(fecha);
+    float totalEgresos=calcularEgresos(fecha);
     float montoAhorro=buscarAhorroPorMesAnio(anio, mes);
+
 
     if(montoAhorro==-1){
         montoAhorro=0;
@@ -352,15 +376,18 @@ float calcularPromedioDiarioSaldo(){
     Ahorro reg;
     int diasDelMes=0;
     float promedioDiarioRestante=0;
+    Fecha fecha;
 
     reg.leerDeDisco(-8);
 
     //int anio=reg.getFecha().getAnio();  //migrar a objeto fecha
     int mes=reg.getFecha().getMes();
     int dia;
+    devuelveFechaActualSistema(&fecha);
 
-    cout<<"Ingrese el dia de hoy: ";    //ver posib de usar fecha sistema.
-    cin>>dia;
+    // cout<<"Ingrese el dia de hoy: ";    //ver posib de usar fecha sistema.
+    // cin>>dia;
+    dia=fecha.getDia();
 
     float saldoDisponible=calcularSaldoDisponibleMesActual();
 
@@ -416,6 +443,7 @@ bool opcionEgresoValida(Categoria *arrayCateg, int cantidad, int opc){
 void quieroAhorrarPara(){
 
     Fecha fechaHoy;  //devuelveFechaActualSistema(&fechaHoy);
+    devuelveFechaActualSistema(&fechaHoy);
 
     Fecha fechaFutura;
     int opcion=0;
@@ -424,7 +452,6 @@ void quieroAhorrarPara(){
     //int aniosDisponibles=0;
 
     Categoria *arrayCategorias;
-    //por qu√© si genero el array en una funci√≥n externa no funciona? si la paso la pos de memoria?
     //int cantidad=generarVectorDinamicoCategorias(arrayCategorias);
 
     int cantidad=calcularCantidadCategorias();
@@ -441,13 +468,17 @@ void quieroAhorrarPara(){
 
     copiarArchivoCategoriasAlArray(arrayCategorias);
 
-    cout<<"Ingrese la fecha de hoy: ";  //migrar a obtener fecha del sistema
-    fechaHoy.Cargar();
+    // cout<<"Ingrese la fecha de hoy: ";  //migrar a obtener fecha del sistema
+    // fechaHoy.Cargar();
 
     cout<<endl;
     mensajesListados("CATEGORIAS");
-    mostrarEgresosArrayCategorias(arrayCategorias, cantidad);
-    cout<<"Indique el codigo de categoria del rubro a simular: ";
+    cout<<"A continuaciÛn se listar·n las categorÌas disponibles para simular el plan de ahorro:"<<endl;
+    system("pause");
+    cout<<endl;
+    mostrarEgresosArrayCategoriasAcotado(arrayCategorias, cantidad);
+    cout<<"Indique el codigo de categoria del rubro a simular: "<<endl;;
+    cout<<"Categoria elegida: ";
     cin>>opcion;
 
     while(!opcionEgresoValida(arrayCategorias, cantidad, opcion)){
@@ -462,25 +493,19 @@ void quieroAhorrarPara(){
         exit(0);
     }
 
-    while(necesitoAhorrar<0){//|| necesitoAhorrar>=calcularIngresos(fechaHoy.getAnio(), fechaHoy.getMes())){
+    while(necesitoAhorrar<0){
         if(necesitoAhorrar<=0){
             cout<<"El monto a simular no puede ser un numero negativo, ingreselo nuevamente: ";
             cin>>necesitoAhorrar;
         }
-        /*else{
-            if(necesitoAhorrar>=calcularIngresos(fechaHoy.getAnio(), fechaHoy.getMes())){
-                cout<<"El monto a simular no puede mayor a sus ingresos, ingreselo nuevamente: ";
-                cin>>necesitoAhorrar;
-            }
-        }*/
     }
 
-    cout<<"Ingrese la fecha en la que desea concretar dicha compra: ";
-    fechaFutura.Cargar(false);
+    cout<<"Ingrese la fecha en la que desea concretar dicha compra: "<<endl;
+    fechaFutura.Cargar(true);
 
-    while(fechaFutura.getMes()<=fechaHoy.getMes()){
+    while(fechaFutura.fConsolidada()<fechaHoy.fConsolidada()){
         cout<<"El ahorro debe ser a futuro. Escriba nuevamente la fecha: "<<endl;
-        fechaFutura.Cargar(false);
+        fechaFutura.Cargar(true);
     }
 
     mesesDisponibles=calcularMeses(fechaHoy, fechaFutura);
@@ -490,15 +515,26 @@ void quieroAhorrarPara(){
 
     //ver por que no funciona array categorias para mostrar directo.
     cout<<"\t Categoria: "<<arrayCategorias[opcion-1].getNombre()<<endl;
-    cout<<"\t Dinero a ahorrar $"<<necesitoAhorrar<<endl;
+    printf("\t Dinero a ahorrar $%.2f\n",necesitoAhorrar);
     cout<<"\t Meses para lograrlo: "<<mesesDisponibles<<endl;
-    cout<<"\t Dinero a ahorrar por mes $"<<necesitoAhorrar/mesesDisponibles<<endl;
+    if(mesesDisponibles==0){
+        //cout<<"\t Dinero a ahorrar por mes $"<<necesitoAhorrar<<endl;
+        printf("\t Dinero a ahorrar por mes $%.2f\n",necesitoAhorrar);
+    }
+    else{
+        //cout<<"\t Dinero a ahorrar por mes $"<<necesitoAhorrar/mesesDisponibles<<endl;
+        printf("\t Dinero a ahorrar por mes $%.2f\n",necesitoAhorrar/mesesDisponibles);
+    }
 
     delete arrayCategorias;
 }
-bool logroMetaAhorro(int anio, int mes){
+//bool logroMetaAhorro(int anio, int mes){
+bool logroMetaAhorro(Fecha fecha){
+    int anio=fecha.getAnio();
+    int mes=fecha.getMes();
+    
     float ahorrado= calcularSaldoDisponibleMesPuntual(anio, mes);
-
+    
     if(ahorrado >=0){
         return true;
     }

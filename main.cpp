@@ -12,20 +12,29 @@
 #include "funcCategoria.h"
 #include "funcAhorro.h"
 #include "funcConfiguracion.h"
+#include "funcInformes.h"
 
 using namespace std;
 
 int main () {
     setlocale(LC_ALL, "spanish");
 
+    //carga masiva movimientos
     // Movimiento reg;
-    // for(int i=0; i<17; i++){
+    // for(int i=0; i<56; i++){
     //     reg.Cargar();
     //     reg.grabarEnDisco();
     // }
+
     // carga masiva de categorias
     // for(int i=0; i<13; i++){
     //     agregarCategoria();
+    // }
+    // system("pause");
+
+    // carga masiva de ahorro
+    // for(int i=0; i<14; i++){
+    //     definirAhorroMes();
     // }
     // system("pause");
 
@@ -38,11 +47,7 @@ int main () {
 
     int opc;
 
-    while(true){
-        cout<<"IMPORTANTE!"<<endl;
-        cout<<"LOTE DE PRUEBA CON DATOS CARGADOS:"<<endl;
-        cout<<"PERIODOS 06/2021 Y 07/2021"<<endl;
-        
+    while(true){       
         cout<<"************************************\n";
         cout<<"           MENU PRINCIPAL           \n";
         cout<<"************************************\n";
@@ -73,9 +78,7 @@ int main () {
                 break;
 
             //4. MENU INFORMES
-            case 4: //menuInformes();
-            cout<<"En construccion..."<<endl;
-                system("pause");
+            case 4: menuInformes();
                 break;
 
             //5. MENU CONFIGURACION
@@ -83,7 +86,7 @@ int main () {
                 break;
 
             default:
-                return 0;
+                //return 0;
                 break;
         }
         cout<<endl;
