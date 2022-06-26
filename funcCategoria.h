@@ -3,6 +3,7 @@
 
 #include <string.h>
 #include "clsCategoria.h"
+#include "clsMovimiento.h"
 
 using namespace std;
 

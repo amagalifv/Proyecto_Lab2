@@ -6,7 +6,7 @@
 # include<cstring>
 using namespace std;
 
-#include "funcCategoria.h"
+//#include "funcCategoria.h"
 #include "clsMovimiento.h"
 
 /* LISTA TODOS LOS MOVIMIENTOS */
