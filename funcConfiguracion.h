@@ -30,6 +30,8 @@ int menuConfiguracion(){
         cout<<"      8) GENERAR DATOS DE INICIO"<<endl;
         cout<<"      9) BACKUP CATEGORIAS"<<endl;
         cout<<"      10) RESTAURAR CATEGORIAS"<<endl;
+        cout<<"      11) BKP NOMBRES SERVICIOS"<<endl;
+        cout<<"      10) RESTAURAR NOMBRES SERVICIOS"<<endl;
         cout<<"****************************************"<<endl;
         cout<<"      0) VOLVER AL MENU PRINCIPAL"<<endl;
         cout<<"****************************************"<<endl;
@@ -59,7 +61,7 @@ int menuConfiguracion(){
                 break;
 
             //6. RESTAURAR AHORRO
-            case 6: mensajeOperacion(restaurarBkpAhorross());
+            case 6: mensajeOperacion(restaurarBkpAhorros());
                break;
 
             //7. CARGAR DATOS DE INICIO
@@ -76,6 +78,14 @@ int menuConfiguracion(){
 
             //10. RESTAURAR BKP CATEGORIAS
             case 10: mensajeOperacion(restaurarBkpCategorias());
+                break;
+
+            //1. BACKUP NOMBRES SERVICIOS
+            case 11: mensajeOperacion(bkpCategorias());
+                break;
+
+            //12. RESTAURAR BKP NOMBRES SERVICIOS
+            case 12: mensajeOperacion(restaurarBkpCategorias());
                 break;
 
             default:
@@ -181,12 +191,37 @@ bool bkpAhorro(){
     fclose(ahorrosBkp);
     return resultado;
 }
+bool bkpNombresServicios(){
+    FILE *nomServBkp;
+    nomServBkp=fopen(BKP_NOMBRESERVICIOS,"wb");
+    bool resultado=true;
+
+    NombreServicio reg;
+    int posDisco=0;
+
+    if(nomServBkp==NULL){
+        resultado=false;
+    }
+
+    while(reg.leerDeDisco(posDisco++)==1){
+        fwrite(&reg, sizeof (NombreServicio), 1, nomServBkp);
+    }
+
+    if (posDisco==0){
+        resultado=false;
+    }
+
+    fclose(nomServBkp);
+    return resultado;
+}
 bool bkpCompletoSistema(){
 
     if(bkpMovimientos()){
         if(bkpCategorias()){
             if(bkpAhorro()){
-                return true;
+                if(bkpNombresServicios()){
+                    return true;
+                }
             }
         }
     }
@@ -284,7 +319,7 @@ bool restaurarBkpCategorias(){
     fclose(restaurarArchivoBkp);
     return resultado;
 }
-bool restaurarBkpAhorross(){
+bool restaurarBkpAhorros(){
     FILE *restaurarArchivoBkp;
     FILE *eliminarArchivoOrigen;
     Ahorro reg;
@@ -313,12 +348,41 @@ bool restaurarBkpAhorross(){
     fclose(restaurarArchivoBkp);
     return resultado;
 }
+bool restaurarBkpNombreServicios(){
+    FILE *restaurarArchivoBkp;
+    FILE *eliminarArchivoOrigen;
+    NombreServicio reg;
+    int posDisco=0;
+    bool resultado=true;
+
+    eliminarArchivoOrigen=fopen(AR_NOMBRESERVICIOS, "wb");
+    fclose(eliminarArchivoOrigen);
+
+    restaurarArchivoBkp=fopen(BKP_NOMBRESERVICIOS,"rb");
+
+    if(restaurarArchivoBkp==NULL){
+        resultado=false;
+    }
+
+    while(fread(&reg, sizeof reg, 1, restaurarArchivoBkp)==1){
+        reg.grabarEnDisco(posDisco++);
+    }
+
+    if (posDisco==0){
+        resultado=false;
+    }
+
+    fclose(restaurarArchivoBkp);
+    return resultado;
+}
 bool restaurarCompletoSistema(){
 
     if(restaurarBkpMovimientos()){
         if(restaurarBkpCategorias()){
-            if(restaurarBkpAhorross()){
-                return true;
+            if(restaurarBkpAhorros()){
+                if(restaurarBkpNombreServicios()){
+                    return true;
+                }
             }
         }
     }
@@ -422,12 +486,37 @@ bool datosInicioAhorros(){
     fclose(ahorrosIni);
     return resultado;
 }
+bool datosInicioNombreServicios(){
+    FILE *nombreServIni;
+    nombreServIni=fopen(INI_NOMBRESERVICIOS,"wb");
+    bool resultado=true;
+
+    NombreServicio reg;
+    int posDisco=0;
+
+    if(nombreServIni==NULL){
+        resultado=false;
+    }
+
+    while(reg.leerDeDisco(posDisco++)==1){
+        fwrite(&reg, sizeof (NombreServicio), 1, nombreServIni);
+    }
+
+    if (posDisco==0){
+        resultado=false;
+    }
+
+    fclose(nombreServIni);
+    return resultado;
+}
 bool generarArchivoDatosInicio(){
 
     if(datosInicioMovimientos()){
         if(datosInicioCategorias()){
             if(datosInicioAhorros()){
-                return true;
+                if(datosInicioNombreServicios()){
+                    return true;
+                }
             }
         }
     }
@@ -553,12 +642,41 @@ bool cargarDatosInicioAhorros(){
     fclose(restaurarArchivoBkp);
     return resultado;
 }
+bool cargarDatosInicioNombreServicios(){
+    FILE *restaurarArchivoBkp;
+    FILE *eliminarArchivoOrigen;
+    NombreServicio reg;
+    int posDisco=0;
+    bool resultado=true;
+
+    eliminarArchivoOrigen=fopen(AR_NOMBRESERVICIOS, "wb");
+    fclose(eliminarArchivoOrigen);
+
+    restaurarArchivoBkp=fopen(INI_NOMBRESERVICIOS,"rb");
+
+    if(restaurarArchivoBkp==NULL){
+        resultado=false;
+    }
+
+    while(fread(&reg, sizeof reg, 1, restaurarArchivoBkp)==1){
+        reg.grabarEnDisco(posDisco++);
+    }
+
+    if (posDisco==0){
+        resultado=false;
+    }
+
+    fclose(restaurarArchivoBkp);
+    return resultado;
+}
 bool cargarDatosDeInicio(){
 
     if(cargarDatosInicioMovimientos()){
         if(cargarDatosInicioCategorias()){
             if(cargarDatosInicioAhorros()){
-                return true;
+                if(cargarDatosInicioNombreServicios()){
+                    return true;
+                }
             }
         }
     }

@@ -17,12 +17,14 @@ const char *AR_AHORRO = "ahorros.dat";
 //ARCHIVOS BKP
 const char *BKP_MOVIMIENTOS = "movimientos.bkp";
 const char *BKP_MOVIMIENTOSERVICIOS = "movimientosServicios.bkp";
+const char *BKP_NOMBRESERVICIOS = "nombreservicios.bkp";
 const char *BKP_CATEGORIAS = "categorias.bkp";
 const char *BKP_AHORRO = "ahorro.bkp";
 
 //ARCHIVOS INI
 const char *INI_MOVIMIENTOS = "movimientos.ini";
 const char *INI_MOVIMIENTOSERVICIOS = "movimientosServicios.ini";
+const char *INI_NOMBRESERVICIOS = "nombreservicios.ini";
 const char *INI_CATEGORIAS = "categorias.ini";
 const char *INI_AHORRO = "ahorro.ini";
 
@@ -47,7 +49,6 @@ bool modificarNombreServicio(int codNombreServicio);
 bool esRepetidoNombreServicio(const char *pNombre);
 void agregarNombreServicio();
 int contarRegistrosNombreServicios();
-
 
 //--------MOVIMIENTOS---------
 void listarMovimientos();
@@ -125,21 +126,25 @@ bool bkpMovimientos();
 bool bkpMovimientosServicios();
 bool bkpCategorias();
 bool bkpAhorro();
+bool bkpNombresServicios();
 bool bkpCompletoSistema();
 bool restaurarBkpMovimientos();
 bool restaurarBkpMovimientosServicios();
 bool restaurarBkpCategorias();
-bool restaurarBkpAhorross();
+bool restaurarBkpAhorros();
+bool restaurarBkpNombreServicios();
 bool restaurarCompletoSistema();
 bool datosInicioMovimientos();
 bool datosInicioMovimientosServicios();
 bool datosInicioCategorias();
 bool datosInicioAhorros();
+bool datosInicioNombreServicios();
 bool generarArchivoDatosInicio();
 bool cargarDatosInicioMovimientos();
 bool cargarDatosInicioMovimientosServicios();
 bool cargarDatosInicioCategorias();
 bool cargarDatosInicioAhorros();
+bool cargarDatosInicioNombreServicios();
 bool cargarDatosDeInicio();
 
 //FUNCIONES
