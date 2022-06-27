@@ -75,7 +75,7 @@ int menuInformes(){
                 break;
 
             //6. TOTAL GASTO POR CATEGORIA ANUAL
-            case 6: cout<<"Escriba el aÃ±o a consultar: ";
+            case 6: cout<<"Escriba el año a consultar: ";
                     cin>>auxInt;
                     cout<<endl;
                     totalGastoCategoriaAnual(auxInt);
@@ -165,10 +165,10 @@ void totalIngresosPorAnio(int anio){
 
             cout<<": $"<<acu<<endl;
             acu=0;
-            j=0;
         }
 
         i++;
+        j=0;
     }
 }
 
@@ -192,10 +192,10 @@ void totalEgresosPorAnio(int anio){
 
             cout<<": $"<<cont<<endl;
             cont=0;
-            j=0;
         }
 
         i++;
+        j=0;
     }
 }
 int calcularCantidadMovimientosAnio(int anio){
@@ -221,54 +221,51 @@ void ponerVectorEnCero(float *arrayAnual, int cant){
         arrayAnual[i]=0;
     }
 }
-void cargarMatrizCategMensual(float **matrizCategMensual){
+void cargarMatrizCategMensual(float **matrizCategMensual, int anio){
     Movimiento reg;
     int posDisco=0;
     int posMatriz=-1;
 
     while(reg.leerDeDisco(posDisco++)==1){
-        //matrizCategMensual[reg.getIdCategoria()-1][reg.getFecha().getMes()-1]+=reg.getImporte();
-        posMatriz=buscarCategoriaCodigo(reg.getCategoria());
-        *(*(matrizCategMensual+(posMatriz))+(reg.getFecha().getMes()-1))+=reg.getImporte();
+        if(reg.getFecha().getAnio()==anio){
+            //matrizCategMensual[reg.getIdCategoria()-1][reg.getFecha().getMes()-1]+=reg.getImporte();
+            posMatriz=buscarCategoriaCodigo(reg.getCategoria());
+            *(*(matrizCategMensual+(posMatriz))+(reg.getFecha().getMes()-1))+=reg.getImporte();
+        }
     }
 }
 void mostrarMatriz(float **matrizCategMensual, int filas, int columnas){
 
     Categoria reg;
+    
+    gotoxy(1, 4);cout<<"CATEGORIA";
 
-    mensajesListados("TOTAL GASTOS MENSUALES POR CATEGORIA");
-    cout<<"   "<<"CATEGORIA"<<"\t\t\t";
-    for (int i=1; i<=12; i++){
-        cout<<"MES "<<i<<"\t";
+    for (int i=0; i<12; i++){
+        gotoxy((21+(11*i)), 4);
+        cout<<"MES "<<i+1;
     }
-    cout<<endl;
+
+    gotoxy(0,5);cout<<"________________________________________________________________________________________________________________________________________________________";
 
     for(int i=0; i<filas; i++){
         reg.leerDeDisco(i);
-        if(strlen(reg.getNombre())<9){
-            printf(" %s\t\t\t\t", reg.getNombre());
-        }
-        else{
-            if(strlen(reg.getNombre())>8 && strlen(reg.getNombre())<15){
-                printf(" %s\t\t\t", reg.getNombre());
-            }
-            else{
-                printf(" %s\t\t", reg.getNombre());
-            }
-        }
+        gotoxy(0,7+i);
+        printf("%s", reg.getNombre());
+
         for (int j=0; j<columnas; j++){
-            printf("$%.2f\t", *(*(matrizCategMensual+i)+j));
-            //cout<<"$"<<*(*(matrizCategMensual+i)+j)<<"\t";
+            gotoxy((21+(11*j)),7+i);
+            printf("$%.2f", *(*(matrizCategMensual+i)+j));
         }
-        cout<<endl;
+
     }
 }
+/*
 void mostrarMatrizPartida(float **matrizCategMensual, int filas, int columnas){
 
     Categoria reg;
 
     mensajesListados("TOTAL GASTOS MENSUALES POR CATEGORIA");
-    
+
     /// MUESTRO MATRIZ DEL MES 1 AL 6
     cout<<"   "<<"CATEGORIA"<<"\t\t\t";
     for (int i=1; i<=6; i++){
@@ -323,11 +320,12 @@ void mostrarMatrizPartida(float **matrizCategMensual, int filas, int columnas){
         cout<<endl;
     }
 
-}
+}*/
 void totalGastoCategMatriz(){
     int filas=calcularCantidadCategorias();
     const int columnas=12;
     float **matrizCategMensual;
+    int anio=0;
 
     //PEDIR MEMORIA
     matrizCategMensual= new float *[filas];
@@ -337,11 +335,17 @@ void totalGastoCategMatriz(){
 
     ponerMatrizEnCero(matrizCategMensual, filas, columnas);
 
-    cargarMatrizCategMensual(matrizCategMensual);
+    cout<<"Ingrese el año a consultar: ";
+    cin>>anio;
 
-    //mostrarMatriz(matrizCategMensual, filas, columnas);
+    cargarMatrizCategMensual(matrizCategMensual, anio);
+
+    mensajesListados("TOTAL GASTOS MENSUALES POR CATEGORIA");
+    cout<<"AÑO: "<<anio<<endl;
+
+    mostrarMatriz(matrizCategMensual, filas, columnas);
     //cout<<"\nMATRIZ PARTIDA"<<endl;
-    mostrarMatrizPartida(matrizCategMensual, filas, columnas);
+    //mostrarMatrizPartida(matrizCategMensual, filas, columnas);
 
     //LIBERAR MEMORIA
     for(int i=0; i<filas; i++){
@@ -476,10 +480,10 @@ void compararAhorroCategoriaPeriodos(){
     devuelveFechaActualSistema(&fechaActual);
 
     mensajesListados("PORCENTAJE DE AHORRO CON RELACION A GASTO ANTERIOR");
-    
-    cout<<"Ingrese el codigo de la categoria a comparar (0 para salir): \n";
+
+    cout<<"Ingrese el codigo de la categoría a comparar (0 para salir): \n";
     listarCategoriasAcotado();
-    cout<<"\nCategoria elegida: ";    
+    cout<<"\nCategoria elegida: ";
     cin>>codCateg;
 
     if(codCateg==0){
@@ -507,7 +511,7 @@ void compararAhorroCategoriaPeriodos(){
         posCateg=buscarCategoriaCodigo(codCateg);
     }
 
-    cout<<"Ingrese el periodo a comparar (se comparará el periodo actual con otro mes/año a elección): "<<endl;
+    cout<<"Ingrese el periodo a comparar (se compararará el periodo actual con otro mes/año a elección): "<<endl;
     cout<<"Mes: ";
     cin>>mes;
     cout<<"Año: ";
@@ -552,12 +556,12 @@ void totalAhorroMensual(){
     mensajesListados("TOTAL DE AHORROS POR MES");
     cout<<"\nIndique el año a informar: ";
     cin>>anio;
-    
+
     for(int i=0; i<12; i++){
         montoAhorro=buscarAhorroPorMesAnio(anio, i+1);
         if(montoAhorro==-1){montoAhorro=0;}
         cout<<"Mes "<<i+1<<"\t$"<<montoAhorro+calcularSaldoDisponibleMesPuntual(anio, i+1)<<endl;
-    }    
+    }
 }
 void totalAhorroAnual(){
     float acumulador;
@@ -567,10 +571,11 @@ void totalAhorroAnual(){
     mensajesListados("TOTAL DE AHORROS POR AÑO");
     cout<<"\nIndique el año a informar: ";
     cin>>anio;
-    
+
     for(int i=0; i<12; i++){
         montoAhorro=buscarAhorroPorMesAnio(anio, i+1);
-        acumulador=montoAhorro+calcularSaldoDisponibleMesPuntual(anio, i+1);
+        if(montoAhorro==-1){montoAhorro=0;}
+        acumulador+=montoAhorro+calcularSaldoDisponibleMesPuntual(anio, i+1);
     }
 
     cout<<"El total de dinero ahorrado durante el año "<<anio<<" fue de $"<<acumulador<<endl;

@@ -62,7 +62,7 @@ void MovimientoServicio::Cargar(int id){
     cout<<"\nCARGA DE SERVICIO:  \n\n";
     setId(id);
 
-    cout<<"\tSELECCIONES UN SERVICIO:  "<<endl;
+    cout<<"SELECCIONE UN SERVICIO:  "<<endl;
     listarNombreServicios();
     cout<<"Codigo del servicio: ";
     cin>>codigo;

@@ -350,10 +350,11 @@ float buscarAhorroPorMesAnio(int anio, int mes){
     Ahorro reg;
     int posDisco=0;
 
-    while(reg.leerDeDisco(posDisco++)==1){
+    while(reg.leerDeDisco(posDisco)==1){
         if(reg.getFecha().getAnio()==anio && reg.getFecha().getMes()==mes){
             return reg.getMontoAhorro();
         }
+        posDisco++;   
     }
     return -1;
 }

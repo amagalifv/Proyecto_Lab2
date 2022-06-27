@@ -20,6 +20,14 @@ using namespace std;
 
 int main () {
     setlocale(LC_ALL, "spanish");
+    system ("color 57");
+    /**********************************
+     maneja tamaño de la ventana sin
+     limitar el buffer de la consola
+     tb permite que se pueda mover
+    **********************************/
+    HWND hWnd=GetConsoleWindowNT();
+    MoveWindow(hWnd,0,0,1250,500,TRUE);
 
     //carga masiva nombres servicios
     // NombreServicio regNom;
@@ -55,7 +63,7 @@ int main () {
 
     int opc;
 
-    while(true){       
+    while(true){
         cout<<"************************************\n";
         cout<<"           MENU PRINCIPAL           \n";
         cout<<"************************************\n";

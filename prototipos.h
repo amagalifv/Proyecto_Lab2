@@ -3,10 +3,32 @@
 
 #include<iostream>
 #include<cstring>
+#include<windows.h>
 #include "clsFecha.h"
 
 using namespace std;
 
+/* //ARCHIVOS DAT
+const char *AR_MOVIMIENTOS = "Achivos/movimientos.dat";
+const char *AR_MOVIMIENTOSERVICIOS = "Achivos/movimientoservicios.dat";
+const char *AR_NOMBRESERVICIOS = "Achivos/nombreservicios.dat";
+const char *AR_CATEGORIAS = "Achivos/categorias.dat";
+const char *AR_AHORRO = "Achivos/ahorros.dat";
+
+//ARCHIVOS BKP
+const char *BKP_MOVIMIENTOS = "Achivos/movimientos.bkp";
+const char *BKP_MOVIMIENTOSERVICIOS = "Achivos/movimientosServicios.bkp";
+const char *BKP_NOMBRESERVICIOS = "Achivos/nombreservicios.bkp";
+const char *BKP_CATEGORIAS = "Achivos/categorias.bkp";
+const char *BKP_AHORRO = "Achivos/ahorro.bkp";
+
+//ARCHIVOS INI
+const char *INI_MOVIMIENTOS = "Achivos/movimientos.ini";
+const char *INI_MOVIMIENTOSERVICIOS = "Achivos/movimientosServicios.ini";
+const char *INI_NOMBRESERVICIOS = "Achivos/nombreservicios.ini";
+const char *INI_CATEGORIAS = "Achivos/categorias.ini";
+const char *INI_AHORRO = "Achivos/ahorro.ini";
+ */
 //ARCHIVOS DAT
 const char *AR_MOVIMIENTOS = "movimientos.dat"; //evaluar cambiar nombre por "DAT_MOVIMIENTOS"
 const char *AR_MOVIMIENTOSERVICIOS = "movimientoservicios.dat";
@@ -33,6 +55,8 @@ const char *INI_AHORRO = "ahorro.ini";
 void cargarCadena(char *palabra, int tamano);
 void mensajeOperacion(bool resultado);
 void mensajesListados(const char *mensaje);
+void gotoxy(short x, short y);
+HWND WINAPI GetConsoleWindowNT(void);
 
 //---MOVIMIENTOS SERVICIOS---
 void crearRegistroServicio(int);
@@ -172,6 +196,27 @@ void mensajeOperacion(bool resultado){
 }
 void mensajesListados(const char *mensaje){
     cout<<"******** "<<mensaje<<" ********"<<endl;
+}
+
+// COLOCA CURSOR EN DET. LUGAR
+void gotoxy(short x, short y){
+    COORD a;
+    a.X = x;
+    a.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),a);
+}
+
+HWND WINAPI GetConsoleWindowNT(void){
+  typedef HWND WINAPI(*GetConsoleWindowT)(void);
+  GetConsoleWindowT GetConsoleWindow;
+  HMODULE hk32Lib = GetModuleHandle(TEXT("KERNEL32.DLL"));
+  GetConsoleWindow = (GetConsoleWindowT)GetProcAddress(hk32Lib,TEXT("GetConsoleWindow"));
+
+  if(GetConsoleWindow == NULL){
+      return NULL;
+  }
+
+  return GetConsoleWindow();
 }
 
 //FIN FUNCIONES

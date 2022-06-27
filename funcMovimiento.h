@@ -70,7 +70,7 @@ void mostrarServicio(int id){
     if (pos!=-1) {
         serv.leerDeDisco(pos);
         serv.Mostrar();
-    }else{cout<<"Error! No se encontró el servicio indicado"<<endl;}
+    }else{cout<<"Error! No se encontr� el servicio indicado"<<endl;}
 }
 
 int modificarRegistro(int id){
@@ -81,6 +81,7 @@ int modificarRegistro(int id){
     float auxF;
     char resp;
     int devol;
+    bool bandera=false;
 
     mov.leerDeDisco(id-1);
 
@@ -99,27 +100,39 @@ int modificarRegistro(int id){
         case 1:
             fecha.Cargar();
             mov.setFecha(fecha);
+            bandera=true;
             break;
         case 2:
             cout<<"INGRESE EL IMPORTE A MODIFICAR: ";
             cin>>auxF;
             mov.setImporte(auxF);
+            bandera=true;
             break;
         case 3:
             cout<<"INGRESE LA CATEGORIA DESEADA: ";
             cin>>auxI;
-            mov.setCategoria(auxI);
+            if(buscarCategoriaCodigo(auxI)!=-1){
+                mov.setCategoria(auxI);
+                bandera=true;
+            }
+            cout<<"Esa categoria no existe. Proceso cancelado."<<endl;
             break;
         case 4:
             cout<<"ES UN GASTO FIJO (S PARA SI Y N PARA NO): ";
             cin>>resp;
             if (resp=='s' || resp=='S') mov.setSiGastoFijo(true);
             else mov.setSiGastoFijo(false);
+            bandera=true;
             break;
         default:
             break;
     }
-    devol=mov.modificarDeDisco(id-1);
+    if(bandera){
+        devol=mov.modificarDeDisco(id-1);
+    }
+    else{
+        devol=-1;
+    }
 
     return devol;
 }
@@ -151,7 +164,7 @@ int menuMovimientos(){
         cout<<"      4) LISTAR MOVIMIENTOS         \n";
         cout<<"      5) AGREGAR SERVICIO           \n";
         cout<<"      6) MODIFICAR SERVICIO         \n";         
-        cout<<"      7) LISTAR TODOS LOS SERVICIO  \n";
+        cout<<"      7) LISTAR TODOS LOS SERVICIOS \n";
         cout<<"************************************\n";
         cout<<"      0) IR A MENU PRINCIPAL        \n";
         cout<<"************************************\n";
@@ -171,7 +184,14 @@ int menuMovimientos(){
             case 2:
                 cout<<"INGRESE EL ID DEL MOVIMIENTO A MODIFICAR: ";
                 cin>>id;
-                devol=modificarRegistro(id);
+                if(buscarPorIdMov(id)!=-1){
+                    devol=modificarRegistro(id);
+                }
+                else{
+                    cout<<"El id ingresado no existe. Proceso cancelado."<<endl;
+                    system("pause");
+                    return 0;
+                }
                 if (devol==1) {
                     cout<<"El registro se modificó exitosamente!\n";
                 }else{cout<<"Error\n";}
