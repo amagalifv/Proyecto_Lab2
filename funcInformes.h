@@ -165,6 +165,7 @@ void totalIngresosPorAnio(int anio){
 
             cout<<": $"<<acu<<endl;
             acu=0;
+            j=0;
         }
 
         i++;
@@ -191,6 +192,7 @@ void totalEgresosPorAnio(int anio){
 
             cout<<": $"<<cont<<endl;
             cont=0;
+            j=0;
         }
 
         i++;
@@ -553,6 +555,7 @@ void totalAhorroMensual(){
     
     for(int i=0; i<12; i++){
         montoAhorro=buscarAhorroPorMesAnio(anio, i+1);
+        if(montoAhorro==-1){montoAhorro=0;}
         cout<<"Mes "<<i+1<<"\t$"<<montoAhorro+calcularSaldoDisponibleMesPuntual(anio, i+1)<<endl;
     }    
 }
