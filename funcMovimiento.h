@@ -8,6 +8,7 @@ using namespace std;
 
 //#include "funcCategoria.h"
 #include "clsMovimiento.h"
+//#include "funcNombreServicio.h"
 
 /* LISTA TODOS LOS MOVIMIENTOS */
 void listarMovimientos(){
@@ -138,6 +139,7 @@ bool siCategoriaValida(int cate){
 int menuMovimientos(){
     int opc, id, devol;
     Movimiento obj;
+    int cod=0;
 
     while(true){
         cout<<"************************************\n";
@@ -147,6 +149,9 @@ int menuMovimientos(){
         cout<<"      2) MODIFICAR MOVIMIENTO       \n";
         cout<<"      3) BORRAR MOVIMIENTO          \n";
         cout<<"      4) LISTAR MOVIMIENTOS         \n";
+        cout<<"      5) AGREGAR SERVICIO           \n";
+        cout<<"      6) MODIFICAR SERVICIO         \n";         
+        cout<<"      7) LISTAR TODOS LOS SERVICIO  \n";
         cout<<"************************************\n";
         cout<<"      0) IR A MENU PRINCIPAL        \n";
         cout<<"************************************\n";
@@ -179,9 +184,30 @@ int menuMovimientos(){
                     cout<<"El registro se diÃ³ de baja exitosamente!\n";
                 }else{cout<<"Error\n";}
                 break;
-            case 4:
+            case 4: 
                 listarMovimientos();
                 break;
+            //5. AGREGAR SERVICIO
+            case 5: agregarNombreServicio();
+                break;
+
+            //6. MODIFICAR SERVICIO
+            case 6: mensajesListados("MODIFICAR SERVICIO");
+                cout<<"\nSe emitirá un listado con los servicios activos: ";
+                listarNombreServiciosAcotado();
+                cout<<"\nIngrese el codigo del servicio a modificar: ";
+                cin>>cod;
+                if(cod==0){
+                    cout<<"Operación cancelada"<<endl;
+                    return 0;
+                }
+                mensajeOperacion(modificarNombreServicio(cod));
+                break;
+
+            //7. LISTAR TODOS LOS SERVICIOS
+            case 7: listarNombreServicios();
+                break;
+
             default:
                 return 0;
                 break;

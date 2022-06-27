@@ -26,7 +26,7 @@ class Ahorro{
         float getMontoAhorro(){return montoAhorro;}
 
         //METODOS
-        bool Cargar();
+        bool Cargar(Fecha fecha, float importe);
         void Mostrar();
         int leerDeDisco(int pos);
         int grabarEnDisco(int pos=-1);
@@ -45,32 +45,11 @@ class Ahorro{
         // }
 };
 
-bool Ahorro::Cargar(){
-    int auxFloat=0;
-    int posDisco=0;
+bool Ahorro::Cargar(Fecha fecha, float importe){
 
-    cout<<"Fecha: "<<endl;
-    fechaAhorro.Cargar();
+    setFecha(fecha);
+    setMonto(importe);
 
-    posDisco=existeRegistro(fechaAhorro.getAnio(), fechaAhorro.getMes());
-
-    if(posDisco==-1){
-        cout<<"Monto que quiere ahorrar: $";
-        cin>>auxFloat;
-
-        //if(validarMontoAhorro(auxFloat, fechaAhorro.getAnio(), fechaAhorro.getMes())){
-        if(validarMontoAhorro(auxFloat, fechaAhorro)){
-            setMonto(auxFloat);
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    else{
-        cout<<"El registro ya existe. "<<endl;
-        return false;
-    }
     cout<<endl;
 }
 void Ahorro::Mostrar(){

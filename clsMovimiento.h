@@ -83,7 +83,8 @@ void Movimiento::Cargar(){
 
     cout<<"INGRESE EL IMPORTE: ";
     cin>>auxF;
-    setImporte(auxF);
+    if(auxF>0)setImporte(auxF);
+    else setImporte(0);
 
     listarCategoriasAcotado();
     cout<<"INGRESE LA CATEGORIA DESEADA: ";
@@ -95,8 +96,8 @@ void Movimiento::Cargar(){
         cout<<"INGRESE LA CATEGORIA DESEADA: ";
         cin>>auxI;
     }
-
     setCategoria(auxI);
+
     if (auxI==7) {
         crearRegistroServicio(_id);
     }
@@ -105,10 +106,8 @@ void Movimiento::Cargar(){
         _siGastoFijo=false;
     }else{
         cout<<"ES UN GASTO FIJO (S PARA SI Y N PARA NO): ";
-        //resp=toupper(cin.get());
         cin>>resp;
         if (resp=='s' || resp=='S'){_siGastoFijo=true;}
-        //if (resp=='S'){_siGastoFijo=true;}
         else {_siGastoFijo=false;}
     }
 
@@ -127,7 +126,7 @@ void Movimiento::Mostrar(){
     cout<<getId()<<endl;
     cout<<"FECHA DE LA OPERACION :";
     _fecha.Mostrar();
-    cout<<"IMPORTE               : $";
+    cout<<"IMPORTE               :$";
     cout<<getImporte()<<endl;
     cout<<"CATEGORIA             :";
     cout<<getCategoria()<<", ";

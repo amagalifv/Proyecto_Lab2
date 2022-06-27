@@ -37,11 +37,16 @@
 		<Unit filename="clsFecha.h" />
 		<Unit filename="clsMovimiento.h" />
 		<Unit filename="clsMovimientoServicio.h" />
+		<Unit filename="clsNombreServicio.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="funcAhorro.h" />
 		<Unit filename="funcCategoria.h" />
 		<Unit filename="funcConfiguracion.h" />
+		<Unit filename="funcInformes.h" />
 		<Unit filename="funcMovimiento.h" />
 		<Unit filename="funcMovimientoServicio.h" />
+		<Unit filename="funcNombreServicio.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="prototipos.h" />
 		<Extensions>

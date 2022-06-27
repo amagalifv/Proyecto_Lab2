@@ -3,12 +3,15 @@
 # include<cstring>
 
 #include "prototipos.h"
+#include "clsNombreServicio.h"
+#include "funcNombreServicio.h"
 
 const string uniMedida[4] = {"kw","min","m3","n/a"};
 class MovimientoServicio{
     private:
         int _id;
-        char _descripcion[15];
+        //char _descripcion[15];
+        int _codNombreServ;
         float _consumo;
         int _medida;
         bool _estado; //tiene que ser igual a Movimiento
@@ -24,21 +27,29 @@ class MovimientoServicio{
 
         //GETTERS
         int getId(){return _id;}
-        const char *getDescripcion(){return _descripcion;}
+        //const char *getDescripcion(){return _descripcion;}
+        int getCodNombre(){return _codNombreServ;}
         int getConsumo(){return _consumo;}
         int getMedida(){return _medida;}
         int getEstado(){return _estado;}
         //SETTERS
-        void setDescripcion(const char *desc){strcpy(_descripcion, desc);}
+        //void setDescripcion(const char *desc){strcpy(_descripcion, desc);}
+        void setCodNombre(int pCod){_codNombreServ=pCod;}
         void setConsumo( float c){_consumo=c;}
         void setMedida(int m){_medida=m;}
         void setEstado(bool es){_estado=es;}
 };
 
 void MovimientoServicio::Mostrar(){
+    int pos=0;
+    NombreServicio reg;
+
     cout<<"DETALLE DEL SERVICIO  :\n";
     cout<<"\t\t\tID: "<<getId()<<endl;
-    cout<<"\t\t\tDESCRIPCION:  "<<getDescripcion()<<endl;
+    //cout<<"\t\t\tDESCRIPCION:  "<<getDescripcion()<<endl;
+    pos=buscarNombreServPorCodigo(getCodNombre());
+    reg.leerDeDisco(pos);
+    cout<<"\t\t\tDESCRIPCION:  "<<reg.getDescripcion()<<endl;
     cout<<"\t\t\tCONSUMO:  "<<getConsumo()<<endl;
     cout<<"\t\t\tMEDIDA:  "<<uniMedida[getMedida()-1]<<endl;
 }
@@ -46,13 +57,20 @@ void MovimientoServicio::Mostrar(){
 void MovimientoServicio::Cargar(int id){
     int aux;
     char texto[15];
+    int codigo;
 
     cout<<"\nCARGA DE SERVICIO:  \n\n";
     setId(id);
 
-    cout<<"\tDESCRIPCION:  ";
-    cargarCadena(texto, 14);
-    setDescripcion(texto);
+    cout<<"\tSELECCIONES UN SERVICIO:  "<<endl;
+    listarNombreServicios();
+    cout<<"Codigo del servicio: ";
+    cin>>codigo;
+    while(!codServicioValido(codigo)){
+        cout<<"El codigo ingresado no existe, ingréselo nuevamente: ";
+        cin>>codigo;        
+    }
+    setCodNombre(codigo);
 
     cout<<"\tCONSUMO:  ";
     cin>>aux;

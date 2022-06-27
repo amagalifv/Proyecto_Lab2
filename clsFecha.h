@@ -68,7 +68,7 @@ void Fecha::Cargar(bool siAnioFuturo){
         cout<<"INGRESE EL MES:             ";
         cin>>mes;
 
-        cout<<"INGRESE EL AÃ‘O (4 digitos): ";
+        cout<<"INGRESE EL AÑO (4 digitos): ";
         cin>>anio;
     }
     

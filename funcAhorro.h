@@ -277,14 +277,33 @@ int existeRegistro(int anio, int mes){
 }
 void definirAhorroMes(){
     Ahorro reg;
+    Fecha fechaAhorro;
+    int posDisco=0;
+    float auxFloat=0;
 
     mensajesListados("DEFINIR AHORRO DEL MES");
-    if(reg.Cargar()){
-        reg.grabarEnDisco();
-        cout<<"Ahorro configurado!"<<endl;
+    
+    devuelveFechaActualSistema(&fechaAhorro);
+
+    posDisco=existeRegistro(fechaAhorro.getAnio(), fechaAhorro.getMes());
+
+    if(posDisco==-1){
+        cout<<"Monto que quiere ahorrar: $";
+        cin>>auxFloat;
+
+        if(validarMontoAhorro(auxFloat, fechaAhorro)){
+
+            if(reg.Cargar(fechaAhorro,auxFloat)){
+                reg.grabarEnDisco();
+                cout<<"Ahorro configurado!"<<endl;
+            }
+        }
+        else{
+            cout<<"No se pudo cargar el ahorro. "<<endl;
+        }
     }
     else{
-        cout<<"No se pudo cargar el ahorro. "<<endl;
+        cout<<"El registro ya existe. No se puede agregar, ejecute Modificar ahorro."<<endl;
     }
 }
 bool modificarAhorroMes(){
@@ -294,8 +313,14 @@ bool modificarAhorroMes(){
 
     reg.leerDeDisco(-8);   //fuerzo a que sólo se pueda modificar el último registro generado.
 
-    cout<<"Ingrese el nuevo monto a ahorrar: $";
+    cout<<"\nEl monto actualmente configurado es: $"<<reg.getMontoAhorro()<<endl;
+
+    cout<<"Ingrese el nuevo monto a ahorrar (-1 para cancelar): $";
     cin>>ahorroMes;
+
+    if(ahorroMes==-1){
+        return 0;
+    }
 
     if(validarMontoAhorro(ahorroMes, reg.getFecha())){
         reg.setMonto(ahorroMes);

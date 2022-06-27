@@ -19,6 +19,7 @@ void mostrarArray(Categoria *arrayCateg, float *arrayAnual, int cant);
 int menuInformes(){
     int opc=0;
     int auxInt;
+    int anio=0;
 
     while(true){
         cout<<"*************************************"<<endl;
@@ -43,22 +44,30 @@ int menuInformes(){
         switch (opc){
             //1. TOTAL DE INGRESOS POR MES
             case 1: mensajesListados("TOTAL DE INGRESOS POR MES");
-                //totalIngresosMensuales();
+                cout<<"INGRESE EL AÑO A LISTAR: ";
+                cin>>anio;
+                totalIngresosPorMes(anio);
                 break;
 
             //2. TOTAL DE EGRESOS POR MES
             case 2: mensajesListados("TOTAL DE EGRESOS POR MES");
-                //totalEgresosMensuales();
+                cout<<"INGRESE EL AÑO A LISTAR: ";
+                cin>>anio;
+                totalEgresosPorMes(anio);
                 break;
 
             //3. TOTAL INGRESOS ANUALES
             case 3: mensajesListados("TOTAL DE INGRESOS ANUALES");
-                cout<<"El total de ingresos del aÃ±o es de $"<<"totalIngresosAnuales()"<<endl;
+                cout<<"INGRESE EL AÑO A LISTAR: ";
+                cin>>anio;
+                totalIngresosPorAnio(anio);
                 break;
 
             //4. TOTAL EGRESOS ANUALES
             case 4: mensajesListados("TOTAL DE EGRESOS ANUALES");
-                cout<<"El total de egresos del aÃ±o es de $"<<"totalEgresosAnuales()"<<endl;
+                cout<<"INGRESE EL AÑO A LISTAR: ";
+                cin>>anio;
+                totalEgresosPorAnio(anio);
                 break;
 
             //5. TOTAL GASTO POR CATEGORIA MENSUAL
@@ -93,6 +102,99 @@ int menuInformes(){
         system("cls");
     }
     return 0;
+}
+void totalIngresosPorMes(int anio){
+    Movimiento mov;
+    float v[12]={0};
+    string  meses[12]={"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Sepiembre","Octubre","Noviembre","Diciembre"};
+    int j=0, tipoCategoria;
+
+    while(mov.leerDeDisco(j)==1) {
+
+        tipoCategoria=buscarTipoCategoria(mov.getCategoria());
+
+        if (mov.getFecha().getAnio()==anio && tipoCategoria==1) {
+            v[mov.getFecha().getMes()-1]+=mov.getImporte();
+        }
+        j++;
+    }
+
+    cout<<"\n*********LISTA DE INGRESOS POR MES*********\n";
+    for (int k=0; k<12; k++) {
+        cout<<meses[k]<<" - Total $ "<<v[k]<<endl;
+    }
+}
+
+void totalEgresosPorMes(int anio){
+    Movimiento mov;
+    float v[12]={0};
+    string  meses[12]={"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Sepiembre","Octubre","Noviembre","Diciembre"};
+    int j=0, tipoCategoria;
+
+    while(mov.leerDeDisco(j)==1) {
+        tipoCategoria=buscarTipoCategoria(mov.getCategoria());
+        if (mov.getFecha().getAnio()==anio && tipoCategoria==2) {
+            v[mov.getFecha().getMes()-1]+=mov.getImporte();
+        }
+        j++;
+    }
+
+    cout<<"\n*********LISTA DE EGRESOS POR MES*********\n";
+    for (int k=0; k<12; k++) {
+        cout<<meses[k]<<" - Total $ "<<v[k]<<endl;
+    }
+}
+
+void totalIngresosPorAnio(int anio){
+    Categoria cate;
+    Movimiento mov;
+    float acu=0;
+    int i=0, j=0;
+
+    while (cate.leerDeDisco(i)==1) {
+
+        if (cate.getTipoMov()==1) { // si es igual a ingreso
+            cout<<"CATEGORIA: "<<cate.getId()<<" - "<<cate.getNombre();
+
+            while(mov.leerDeDisco(j)==1) {
+                if (mov.getFecha().getAnio()==anio && mov.getCategoria()==cate.getId()) {
+                    acu+=mov.getImporte();
+                }
+                j++;
+            }
+
+            cout<<": $"<<acu<<endl;
+            acu=0;
+        }
+
+        i++;
+    }
+}
+
+void totalEgresosPorAnio(int anio){
+    Categoria cate;
+    Movimiento mov;
+    float cont=0;
+    int i=0, j=0;
+
+    while (cate.leerDeDisco(i)==1) {
+
+        if (cate.getTipoMov()==2) { // si es igual a egreso
+            cout<<"CATEGORIA: "<<cate.getId()<<" - "<<cate.getNombre();
+
+            while(mov.leerDeDisco(j)==1) {
+                if (mov.getFecha().getAnio()==anio && mov.getCategoria()==cate.getId()) {
+                    cont+=mov.getImporte();
+                }
+                j++;
+            }
+
+            cout<<": $"<<cont<<endl;
+            cont=0;
+        }
+
+        i++;
+    }
 }
 int calcularCantidadMovimientosAnio(int anio){
     Movimiento reg;
@@ -304,22 +406,12 @@ void totalGastoCategoriaAnual(int anio){
     delete arrayCateg;
     delete arrayAnual;
 }
-float sumarAcumuladoCategoriaPeriodo(int codCateg,int opc, Fecha fecha){
+float sumarAcumuladoCategoriaPeriodo(int codCateg,int codNombreServ, Fecha fecha){
     Movimiento reg;
     MovimientoServicio regServ;
     int posDisco=0;
     int posDiscoServ=0;
     float acumulador=0;
-
-    switch (opc)
-    {
-    case 1:
-        /* code */
-        break;
-    
-    default:
-        break;
-    }
 
     while(reg.leerDeDisco(posDisco)==1){
         if(reg.getEstado()){
@@ -327,7 +419,7 @@ float sumarAcumuladoCategoriaPeriodo(int codCateg,int opc, Fecha fecha){
                 if(reg.getFecha().getAnio()==fecha.getAnio() && reg.getFecha().getMes()== fecha.getMes()){
                     if(codCateg==7){
                         while(regServ.leerDeDisco(posDiscoServ)==1){
-                            if(reg.getId()==regServ.getId()){
+                            if(regServ.getCodNombre()==codNombreServ){
                                 acumulador+=reg.getImporte();
                             }
                             posDiscoServ++;
@@ -343,22 +435,27 @@ float sumarAcumuladoCategoriaPeriodo(int codCateg,int opc, Fecha fecha){
     }
     return acumulador;
 }
-float calcularConsumosCategorias(int codCateg, int opc, Fecha fechaActual, Fecha fecha2){
+float calcularConsumosCategorias(int codCateg, int codNombreServ, Fecha fechaActual, Fecha fecha2){
     float totalGastoActual=0;
     float totalGasto2=0;
     float porcentaje=0;
 
-    totalGastoActual=sumarAcumuladoCategoriaPeriodo(codCateg, opc, fechaActual);
-    totalGasto2=sumarAcumuladoCategoriaPeriodo(codCateg, opc, fecha2);
+    totalGastoActual=sumarAcumuladoCategoriaPeriodo(codCateg, codNombreServ, fechaActual);
+    totalGasto2=sumarAcumuladoCategoriaPeriodo(codCateg, codNombreServ, fecha2);
 
     if(totalGasto2==0){
         porcentaje=-2;
     }
     else{
-        porcentaje=totalGastoActual*100/totalGasto2;
+        if(totalGastoActual==0){
+            porcentaje=-3;
+        }
+        else{
+            porcentaje=totalGastoActual*100/totalGasto2;
+        }
     }
 
-    if(totalGastoActual==0){
+    if(totalGasto2==0 && totalGastoActual==0){
         porcentaje=-1;
     }
 
@@ -367,7 +464,7 @@ float calcularConsumosCategorias(int codCateg, int opc, Fecha fechaActual, Fecha
 void compararAhorroCategoriaPeriodos(){
     Fecha fechaActual;
     Fecha fecha2;
-    int opc=0;
+    int codNombreServ=0;
     int mes=0;
     int anio=0;
     int codCateg;
@@ -389,11 +486,14 @@ void compararAhorroCategoriaPeriodos(){
     }
 
     if(codCateg==7){
-        cout<<"Ingrese el numero del servicio (1-EDENOR, 2-GAS NATURAL, 3-TELEFONO, 4-AYSA. 5-PATENTE, 6-ARBA, 7-INTERNET): ";
-        cin>>opc;
-        while(opc<=0 && opc>7){
+        cout<<"Listado de servicios disponibles para consultar: "<<endl;
+        listarNombreServiciosAcotado();
+        cout<<"Ingrese el código del servicio: ";
+        cout<<"Código elegido: ";
+        cin>>codNombreServ;
+        while(codNombreServ<=0 && codNombreServ>contarRegistrosNombreServicios()){
             cout<<"Opcion ingresada inválida, escríbala nuevamente: ";
-            cin>>opc;
+            cin>>codNombreServ;
         }
     }
 
@@ -413,21 +513,24 @@ void compararAhorroCategoriaPeriodos(){
     fecha2.setMes(mes);
     fecha2.setAnio(anio);
 
-    porcentaje=calcularConsumosCategorias(codCateg, opc, fechaActual, fecha2);
+    porcentaje=calcularConsumosCategorias(codCateg, codNombreServ, fechaActual, fecha2);
 
     //**********************
     //Agregar que debe comparar movServ si es categ 7!!!
 
     if(porcentaje==-1){
-        cout<<"No tuviste gastos de esa categoria en ninguno de los periodos!"<<endl;
+        cout<<"No tuviste gastos de ese servicio en ninguno de los periodos!"<<endl;
         return;
     }
     if(porcentaje==-2){
-        cout<<"No tuviste gastos de esa categoria en el periodo anterior"<<endl;
+        cout<<"No tuviste gastos de ese servicio en el periodo anterior. No se puede comparar."<<endl;
         return;
     }
+    if(porcentaje==-3){
+        cout<<"No tuviste gastos de ese servicio en el periodo actual. No se puede comparar."<<endl;
+    }
     if(porcentaje==0){
-            cout<<"Comparando ambos periodos gastaste lo mismo."<<endl;
+        cout<<"Comparando ambos periodos gastaste lo mismo."<<endl;
     }
     else{
         if(porcentaje>=1 && porcentaje<=100){

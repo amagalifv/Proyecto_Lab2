@@ -8,9 +8,9 @@
 using namespace std;
 
 //ARCHIVOS DAT
-//const char *AR_MOVIMIENTOS = "movimientos.dat"; //evaluar cambiar nombre por "DAT_MOVIMIENTOS"
 const char *AR_MOVIMIENTOS = "movimientos.dat"; //evaluar cambiar nombre por "DAT_MOVIMIENTOS"
 const char *AR_MOVIMIENTOSERVICIOS = "movimientoservicios.dat";
+const char *AR_NOMBRESERVICIOS = "nombreservicios.dat";
 const char *AR_CATEGORIAS = "categorias.dat";
 const char *AR_AHORRO = "ahorros.dat";
 
@@ -37,6 +37,18 @@ void crearRegistroServicio(int);
 void bajaLogicaServicio(int);
 int buscarPorIdServ (int);
 
+//---NOMBRES SERVICIOS---
+int buscarNombreServPorCodigo(int codigoNombre);
+void listarNombreServicios();
+void listarNombreServiciosAcotado();
+bool codServicioValido(int cod);
+int buscarNombreServicioCodigo(int codNombreServicio);
+bool modificarNombreServicio(int codNombreServicio);
+bool esRepetidoNombreServicio(const char *pNombre);
+void agregarNombreServicio();
+int contarRegistrosNombreServicios();
+
+
 //--------MOVIMIENTOS---------
 void listarMovimientos();
 int buscarPorIdMov (int &id);
@@ -61,6 +73,7 @@ bool esGastoFijo(int, int, int);
 int calcularCantidadCategorias();
 void listarCategoriasAcotado();
 void listarCategoriasEgresoAcotado();
+int buscarTipoCategoria(int categoria);
 
 //----------KAKEBO / AHORRO-----------
 int menuKakebo();
@@ -85,6 +98,10 @@ void quieroAhorrarPara();
 bool logroMetaAhorro(Fecha fecha);
 
 //---------INFORMES----------
+void totalIngresosPorMes(int anio);
+void totalEgresosPorMes(int anio);
+void totalIngresosPorAnio(int anio);
+void totalEgresosPorAnio(int anio);
 int calcularCantidadMovimientosAnio(int anio);
 void ponerMatrizEnCero(int **matrizCategMensual, int filas, int columnas);
 void ponerVectorEnCero(float *arrayAnual, int cant);

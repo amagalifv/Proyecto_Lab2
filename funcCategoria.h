@@ -126,7 +126,7 @@ bool modificarCategoria(int codCateg){
     int posDisco=buscarCategoriaCodigo(codCateg);
 
     while(posDisco==-1){
-        cout<<"La no existe el codigo de categoria seleccionado. Escribalo nuevamente: ";
+        cout<<"No existe el codigo de categoria seleccionado. Escribalo nuevamente: ";
         cin>>opc;
         posDisco=buscarCategoriaCodigo(opc);
     }
@@ -138,7 +138,7 @@ bool modificarCategoria(int codCateg){
         cout<<"Ingrese 1 para ingreso, 2 para egreso: ";
         cin>>opc;
         while(opc!=1 && opc!=2){
-            cout<<"Opcion ingresada invÃ¡lida. EscrÃ­bala nuevamente: ";
+            cout<<"Opcion ingresada inválida. Escrí­bala nuevamente: ";
             cin>>opc;
         }
         reg.setTipoMov(opc);
@@ -295,6 +295,18 @@ void listarCategoriasAcotado(){
         cout<<cate.getNombre()<<endl;
         i++;
     }
+}
+int buscarTipoCategoria(int categoria){
+    Categoria cate;
+    int i=0;
+
+    while(cate.leerDeDisco(i)==1) {
+        if (cate.getId()==categoria) {
+            return cate.getTipoMov();
+        }
+        i++;
+    }
+    return 0;
 }
 
 

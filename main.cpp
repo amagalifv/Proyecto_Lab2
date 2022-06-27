@@ -7,19 +7,27 @@
 #include "prototipos.h"
 #include "clsMovimiento.h"
 #include "clsMovimientoServicio.h"
+#include "clsNombreServicio.h"
 #include "funcMovimiento.h"
 #include "funcMovimientoServicio.h"
 #include "funcCategoria.h"
 #include "funcAhorro.h"
 #include "funcConfiguracion.h"
 #include "funcInformes.h"
+#include "funcNombreServicio.h"
 
 using namespace std;
 
 int main () {
     setlocale(LC_ALL, "spanish");
 
-    //carga masiva movimientos
+    //carga masiva nombres servicios
+    // NombreServicio regNom;
+    // for(int i=0; i<7; i++){
+    //     agregarNombreServicio();
+    // }
+
+    // //carga masiva movimientos
     // Movimiento reg;
     // for(int i=0; i<56; i++){
     //     reg.Cargar();
@@ -86,7 +94,7 @@ int main () {
                 break;
 
             default:
-                //return 0;
+                return 0;
                 break;
         }
         cout<<endl;
